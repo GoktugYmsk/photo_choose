@@ -2,8 +2,7 @@
 
 .content {
   flex: 1;
-  background-color: #f5f6fa;
-  min-height: calc(100vh - 140px);
+  transition: all 0.3s ease;
 
   .content-container {
     max-width: $container-width;
@@ -67,6 +66,7 @@
     }
   }
 
+  // Featured Contests
   .featured-contests {
     margin-bottom: 3rem;
 
@@ -180,6 +180,30 @@
           font-size: 0.9rem;
         }
       }
+    }
+  }
+}
+
+body.light-theme {
+  .content {
+    background-color: theme-color("light", "bg-primary");
+    color: theme-color("light", "text-primary");
+
+    .content-container {
+      //   background-color: theme-color("light", "bg-secondary");
+      //   box-shadow: 0 0 20px theme-color("light", "shadow-color");
+    }
+  }
+}
+
+body.dark-theme {
+  .content {
+    background-color: theme-color("dark", "bg-primary");
+    color: theme-color("dark", "text-primary");
+
+    .content-container {
+      background-color: theme-color("dark", "bg-secondary");
+      box-shadow: 0 0 20px theme-color("dark", "shadow-color");
     }
   }
 }
