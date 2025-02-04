@@ -1,24 +1,22 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import Content from "./components/Content";
+import Content from "./components/CustomComponent/Content";
 
-import Header from "./components/Header";
+import Header from "./components/CustomComponent/Header";
 import Login from "./components/auth/Login";
 import "./App.css";
+import SignUp from "./components/auth/Signin";
+import CustomComponent from "./components/CustomComponent";
 
 function App() {
   return (
     <div className="app">
       <Routes>
         <Route>
-          <Route path="/" element={<Content />} />
+          <Route path="/" element={<CustomComponent />} />
           <Route path="/Login" element={<Login />} />
-          {/* <Route path="/upload" element={<PhotoUpload />} />
-            <Route path="/contest/:id" element={<ContestDetail />} />
-            <Route path="/profile" element={<UserProfile />} />
-
-            <Route path="/admin/*" element={<AdminDashboard />} /> */}
+          <Route path="/SignUp" element={<SignUp />} />
         </Route>
       </Routes>
     </div>
