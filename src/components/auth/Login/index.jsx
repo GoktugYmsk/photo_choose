@@ -39,9 +39,9 @@ const Login = () => {
       localStorage.setItem("token", response.token);
 
       if (response.user.role === "admin") {
-        navigate("/admin/dashboard");
+        navigate("/admin");
       } else {
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (err) {
       setError(err.message);
@@ -141,7 +141,7 @@ const Login = () => {
         </div> */}
 
         <p className="auth-switch">
-          Hesabınız yok mu? <Link to="/auth/signup">Hemen kaydolun</Link>
+          Hesabınız yok mu? <Link to="/Register">Hemen kaydolun</Link>
         </p>
       </div>
     </div>

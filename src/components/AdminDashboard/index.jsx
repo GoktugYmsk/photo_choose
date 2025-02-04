@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { mockAuthService } from "../../../services/mockAuth";
+import { mockAuthService } from "../services/mockAuth";
 import "./index.scss";
 
 const AdminDashboard = () => {
