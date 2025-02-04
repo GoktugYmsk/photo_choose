@@ -6,6 +6,7 @@ import {
   faSave,
   faSpinner,
   faImage,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { mockAuthService } from "../../services/mockAuth";
 import "./index.scss";
@@ -105,6 +106,17 @@ const Profile = () => {
     }
   };
 
+  const getDefaultAvatar = () => {
+    if (!user.avatar) {
+      return (
+        <div className="default-avatar">
+          <FontAwesomeIcon icon={faUser} />
+        </div>
+      );
+    }
+    return <img src={user.avatar} alt={user.name} />;
+  };
+
   return (
     <div className="profile-page">
       <div className="profile-header">
@@ -135,10 +147,7 @@ const Profile = () => {
             style={{ display: "none" }}
           />
           <div className="profile-avatar">
-            <img
-              src={user.avatar || "https://via.placeholder.com/150"}
-              alt={user.name}
-            />
+            {getDefaultAvatar()}
             <button
               className={`change-avatar ${
                 isUploadingAvatar ? "uploading" : ""
