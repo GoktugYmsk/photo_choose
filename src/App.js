@@ -5,7 +5,7 @@ import Content from "./components/CustomComponent/Content";
 
 import Header from "./components/CustomComponent/Header";
 import Login from "./components/auth/Login";
-import "./App.css";
+import "./App.scss";
 import SignUp from "./components/auth/SignUp";
 import CustomComponent from "./components/CustomComponent";
 
