@@ -75,10 +75,10 @@ const Header = () => {
             </ul>
 
             <div className="auth-buttons">
-              <Link to="/auth/login" className="login-btn">
+              <Link to="/Login" className="login-btn">
                 Giriş Yap
               </Link>
-              <Link to="/auth/signup" className="register-btn">
+              <Link to="/Register" className="register-btn">
                 Kayıt Ol
               </Link>
             </div>
