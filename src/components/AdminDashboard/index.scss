@@ -1,0 +1,105 @@
+@import "../../../variables";
+
+.admin-dashboard {
+  padding: 2rem;
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid theme-color("light", "border-color");
+
+    h1 {
+      font-size: 2rem;
+      color: theme-color("light", "text-primary");
+    }
+
+    .admin-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      span {
+        font-weight: 500;
+      }
+
+      .logout-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: $border-radius;
+        background-color: $danger-color;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: darken($danger-color, 10%);
+        }
+      }
+    }
+  }
+
+  .admin-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: $tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $mobile) {
+      grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+      background-color: theme-color("light", "bg-secondary");
+      padding: 1.5rem;
+      border-radius: $border-radius;
+      box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        color: theme-color("light", "text-secondary");
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $secondary-color;
+      }
+    }
+  }
+}
+
+Dark theme styles body.dark-theme {
+  .admin-dashboard {
+    .admin-header {
+      border-bottom-color: theme-color("dark", "border-color");
+
+      h1 {
+        color: theme-color("dark", "text-primary");
+      }
+    }
+
+    .admin-stats {
+      .stat-card {
+        background-color: theme-color("dark", "bg-secondary");
+        box-shadow: 0 2px 8px theme-color("dark", "shadow-color");
+
+        h3 {
+          color: theme-color("dark", "text-secondary");
+        }
+      }
+    }
+  }
+}
