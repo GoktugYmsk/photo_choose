@@ -1,7 +1,7 @@
 import React from "react";
 
-function Content() {
+function Footer() {
   return <div></div>;
 }
 
-export default Content;
+export default Footer;
