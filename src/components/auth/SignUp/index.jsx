@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle, faApple } from "@fortawesome/free-brands-svg-icons";
 import "./index.scss";
 
 const SignUp = () => {
@@ -8,37 +10,49 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    agreeToTerms: false,
   });
-  const [theme, setTheme] = useState("light");
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Kayıt işlemleri burada yapılacak
-    if (formData.password !== formData.confirmPassword) {
-      alert("Şifreler eşleşmiyor!");
-      return;
-    }
-    console.log(formData);
+    console.log("Form submitted:", formData);
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+  const handleGoogleLogin = () => {
+    console.log("Google signup");
+  };
+
+  const handleAppleLogin = () => {
+    console.log("Apple signup");
   };
 
   return (
-    <div className={`signup-container ${theme}`}>
-      <div className="theme-toggle">
-        <button onClick={toggleTheme}>{theme === "light" ? "🌙" : "☀️"}</button>
-      </div>
-      <div className="signup-box">
+    <div className="auth-container">
+      <div className="auth-box">
         <h1>Kayıt Ol</h1>
+        <div className="social-login">
+          <button className="google-btn" onClick={handleGoogleLogin}>
+            <FontAwesomeIcon icon={faGoogle} />
+            <span>Google ile kayıt ol</span>
+          </button>
+          <button className="apple-btn" onClick={handleAppleLogin}>
+            <FontAwesomeIcon icon={faApple} />
+            <span>Apple ile kayıt ol</span>
+          </button>
+        </div>
+
+        <div className="divider">
+          <span>veya</span>
+        </div>
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="fullName">Ad Soyad</label>
@@ -48,10 +62,10 @@ const SignUp = () => {
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              placeholder="Ad ve soyadınızı girin"
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -60,10 +74,10 @@ const SignUp = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Email adresinizi girin"
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="password">Şifre</label>
             <input
@@ -72,10 +86,10 @@ const SignUp = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Şifrenizi girin"
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="confirmPassword">Şifre Tekrar</label>
             <input
@@ -84,26 +98,36 @@ const SignUp = () => {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              placeholder="Şifrenizi tekrar girin"
               required
             />
           </div>
-          <div className="terms">
+
+          <div className="form-options">
             <label className="checkbox-label">
-              <input type="checkbox" required />
+              <input
+                type="checkbox"
+                name="agreeToTerms"
+                checked={formData.agreeToTerms}
+                onChange={handleChange}
+                required
+              />
               <span>
-                <Link to="/terms">Kullanım şartlarını</Link> ve{" "}
-                <Link to="/privacy">gizlilik politikasını</Link> kabul ediyorum
+                <Link to="/terms" target="_blank">
+                  Kullanım şartlarını
+                </Link>{" "}
+                kabul ediyorum
               </span>
             </label>
           </div>
-          <button type="submit" className="signup-button">
+
+          <button type="submit" className="submit-btn">
             Kayıt Ol
           </button>
         </form>
-        <div className="login-link">
-          Zaten hesabınız var mı? <Link to="/login">Giriş Yapın</Link>
-        </div>
+
+        <p className="auth-switch">
+          Zaten hesabınız var mı? <Link to="/Login">Giriş yapın</Link>
+        </p>
       </div>
     </div>
   );

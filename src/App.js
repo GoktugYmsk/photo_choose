@@ -6,7 +6,7 @@ import Content from "./components/CustomComponent/Content";
 import Header from "./components/CustomComponent/Header";
 import Login from "./components/auth/Login";
 import "./App.css";
-import SignUp from "./components/auth/Signin";
+import SignUp from "./components/auth/SignUp";
 import CustomComponent from "./components/CustomComponent";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <Route>
           <Route path="/" element={<CustomComponent />} />
           <Route path="/Login" element={<Login />} />
-          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/Register" element={<SignUp />} />
         </Route>
       </Routes>
     </div>
