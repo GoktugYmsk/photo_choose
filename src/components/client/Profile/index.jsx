@@ -7,6 +7,7 @@ import {
   faSpinner,
   faImage,
   faUser,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { mockAuthService } from "../../services/mockAuth";
 import "./index.scss";
@@ -37,6 +38,7 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Burada API çağrısı yapılacak
     const updatedUser = { ...user, ...formData };
     localStorage.setItem("user", JSON.stringify(updatedUser));
     setIsEditing(false);
@@ -50,11 +52,13 @@ const Profile = () => {
     const file = e.target.files[0];
     if (!file) return;
 
+    // Dosya tipini kontrol et
     if (!file.type.startsWith("image/")) {
       alert("Lütfen bir resim dosyası seçin");
       return;
     }
 
+    // Dosya boyutunu kontrol et (5MB)
     if (file.size > 5 * 1024 * 1024) {
       alert("Dosya boyutu 5MB'dan küçük olmalıdır");
       return;
@@ -106,6 +110,36 @@ const Profile = () => {
     }
   };
 
+  const handleRemoveAvatar = async () => {
+    try {
+      setIsUploadingAvatar(true);
+      const updatedUser = await mockAuthService.removeAvatar();
+      setFormData((prev) => ({
+        ...prev,
+        avatar: null,
+      }));
+    } catch (error) {
+      alert("Profil fotoğrafı kaldırılırken bir hata oluştu");
+    } finally {
+      setIsUploadingAvatar(false);
+    }
+  };
+
+  const handleRemoveBanner = async () => {
+    try {
+      setIsUploadingBanner(true);
+      const updatedUser = await mockAuthService.removeBanner();
+      setFormData((prev) => ({
+        ...prev,
+        banner: null,
+      }));
+    } catch (error) {
+      alert("Banner fotoğrafı kaldırılırken bir hata oluştu");
+    } finally {
+      setIsUploadingBanner(false);
+    }
+  };
+
   const getDefaultAvatar = () => {
     if (!user.avatar) {
       return (
@@ -128,17 +162,31 @@ const Profile = () => {
             backgroundPosition: "center",
           }}
         >
-          <button
-            className={`change-banner ${isUploadingBanner ? "uploading" : ""}`}
-            onClick={handleBannerClick}
-            disabled={isUploadingBanner}
-          >
-            <FontAwesomeIcon
-              icon={isUploadingBanner ? faSpinner : faImage}
-              className={isUploadingBanner ? "fa-spin" : ""}
-            />
-            <span>Banner Değiştir</span>
-          </button>
+          <div className="banner-actions">
+            <button
+              className={`change-banner ${
+                isUploadingBanner ? "uploading" : ""
+              }`}
+              onClick={handleBannerClick}
+              disabled={isUploadingBanner}
+            >
+              <FontAwesomeIcon
+                icon={isUploadingBanner ? faSpinner : faImage}
+                className={isUploadingBanner ? "fa-spin" : ""}
+              />
+              <span>Banner Değiştir</span>
+            </button>
+            {user.banner && (
+              <button
+                className="remove-banner"
+                onClick={handleRemoveBanner}
+                disabled={isUploadingBanner}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+                <span>Banner'ı Kaldır</span>
+              </button>
+            )}
+          </div>
           <input
             type="file"
             ref={bannerInputRef}
@@ -148,18 +196,29 @@ const Profile = () => {
           />
           <div className="profile-avatar">
             {getDefaultAvatar()}
-            <button
-              className={`change-avatar ${
-                isUploadingAvatar ? "uploading" : ""
-              }`}
-              onClick={handleAvatarClick}
-              disabled={isUploadingAvatar}
-            >
-              <FontAwesomeIcon
-                icon={isUploadingAvatar ? faSpinner : faCamera}
-                className={isUploadingAvatar ? "fa-spin" : ""}
-              />
-            </button>
+            <div className="avatar-actions">
+              <button
+                className={`change-avatar ${
+                  isUploadingAvatar ? "uploading" : ""
+                }`}
+                onClick={handleAvatarClick}
+                disabled={isUploadingAvatar}
+              >
+                <FontAwesomeIcon
+                  icon={isUploadingAvatar ? faSpinner : faCamera}
+                  className={isUploadingAvatar ? "fa-spin" : ""}
+                />
+              </button>
+              {user.avatar && (
+                <button
+                  className="remove-avatar"
+                  onClick={handleRemoveAvatar}
+                  disabled={isUploadingAvatar}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              )}
+            </div>
             <input
               type="file"
               ref={fileInputRef}

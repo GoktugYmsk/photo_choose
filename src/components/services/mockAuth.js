@@ -95,4 +95,32 @@ export const mockAuthService = {
       }, 1000);
     });
   },
+
+  removeAvatar: () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const updatedUser = {
+          ...user,
+          avatar: null,
+        };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        resolve(updatedUser);
+      }, 500);
+    });
+  },
+
+  removeBanner: () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const updatedUser = {
+          ...user,
+          banner: null,
+        };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        resolve(updatedUser);
+      }, 500);
+    });
+  },
 };

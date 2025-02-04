@@ -2,50 +2,63 @@
 
 .profile-page {
   .profile-header {
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
+    position: relative;
 
     .profile-cover {
-      height: 200px;
+      height: 250px;
       background: linear-gradient(135deg, $primary-color, $secondary-color);
       position: relative;
       overflow: visible;
 
-      .change-banner {
+      .banner-actions {
         position: absolute;
         top: 1rem;
         right: 1rem;
         display: flex;
-        align-items: center;
         gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background: rgba($primary-color, 0.8);
-        color: white;
-        border: none;
-        border-radius: $border-radius;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        z-index: 2;
         opacity: 0;
+        transition: opacity 0.3s ease;
 
-        &:hover {
-          background: rgba($primary-color, 1);
-        }
+        button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.25rem;
+          background: rgba(black, 0.5);
+          color: white;
+          border: none;
+          border-radius: $border-radius;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(4px);
 
-        &.uploading {
-          background: rgba($primary-color, 0.9);
-          cursor: not-allowed;
-        }
+          &:hover {
+            background: rgba(black, 0.7);
+          }
 
-        .fa-spin {
-          animation: fa-spin 1s infinite linear;
-        }
+          &.remove-banner {
+            background: rgba($danger-color, 0.5);
 
-        span {
-          font-size: 0.9rem;
+            &:hover {
+              background: rgba($danger-color, 0.7);
+            }
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+          }
+
+          .fa-spin {
+            animation: fa-spin 1s infinite linear;
+          }
         }
       }
 
       &:hover {
-        .change-banner {
+        .banner-actions {
           opacity: 1;
         }
       }
@@ -54,14 +67,16 @@
     .profile-avatar {
       position: absolute;
       bottom: -50px;
-      left: 50px;
+      left: 8%;
+      transform: translateX(-50%);
       width: 150px;
       height: 150px;
       border-radius: 50%;
       border: 5px solid white;
       overflow: hidden;
-      box-shadow: 0 2px 10px theme-color("light", "shadow-color");
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
       z-index: 10;
+      background-color: white;
 
       .default-avatar {
         width: 100%;
@@ -84,29 +99,51 @@
         object-fit: cover;
       }
 
-      .change-avatar {
+      .avatar-actions {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        padding: 0.5rem;
-        background: rgba($primary-color, 0.8);
-        color: white;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        display: flex;
+        opacity: 0;
+        transition: opacity 0.3s ease;
 
-        &:hover {
-          background: rgba($primary-color, 1);
+        button {
+          flex: 1;
+          padding: 0.75rem;
+          background: rgba(black, 0.5);
+          color: white;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(4px);
+
+          &:hover {
+            background: rgba(black, 0.7);
+          }
+
+          &.remove-avatar {
+            background: rgba($danger-color, 0.5);
+
+            &:hover {
+              background: rgba($danger-color, 0.7);
+            }
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+          }
+
+          .fa-spin {
+            animation: fa-spin 1s infinite linear;
+          }
         }
+      }
 
-        &.uploading {
-          background: rgba($primary-color, 0.9);
-          cursor: not-allowed;
-        }
-
-        .fa-spin {
-          animation: fa-spin 1s infinite linear;
+      &:hover {
+        .avatar-actions {
+          opacity: 1;
         }
       }
     }
@@ -114,6 +151,7 @@
 
   .profile-content {
     padding: 0 2rem;
+    margin-top: 2rem;
 
     .profile-info {
       background-color: theme-color("light", "bg-secondary");
@@ -121,12 +159,14 @@
       border-radius: $border-radius;
       margin-bottom: 2rem;
       box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+      text-align: left;
 
       .info-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 2rem;
+        position: relative;
 
         h1 {
           font-size: 2rem;
@@ -134,6 +174,7 @@
         }
 
         .edit-button {
+          position: static;
           display: flex;
           align-items: center;
           gap: 0.5rem;
@@ -155,6 +196,7 @@
       .edit-form {
         .form-group {
           margin-bottom: 1.5rem;
+          text-align: left;
 
           label {
             display: block;
@@ -211,6 +253,8 @@
       }
 
       .profile-details {
+        text-align: left;
+
         .detail-item {
           margin-bottom: 2rem;
 
@@ -279,6 +323,7 @@
 
     .recent-photos {
       h2 {
+        text-align: left;
         font-size: 1.5rem;
         margin-bottom: 1.5rem;
         color: theme-color("light", "text-primary");
@@ -330,32 +375,48 @@ body.dark-theme {
           darken($secondary-color, 10%)
         );
 
-        .change-banner {
-          background: rgba($dark-bg, 0.8);
+        .banner-actions {
+          button {
+            background: rgba($dark-bg, 0.6);
 
-          &:hover {
-            background: rgba($dark-bg, 0.9);
-          }
+            &:hover {
+              background: rgba($dark-bg, 0.8);
+            }
 
-          &.uploading {
-            background: rgba($dark-bg, 0.95);
+            &.remove-banner {
+              background: rgba($danger-color, 0.4);
+
+              &:hover {
+                background: rgba($danger-color, 0.6);
+              }
+            }
           }
         }
       }
 
       .profile-avatar {
         border-color: theme-color("dark", "bg-secondary");
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 
-        .change-avatar {
-          background: rgba($dark-bg, 0.8);
+        .default-avatar {
+          background-color: darken($primary-color, 20%);
+          color: lighten($primary-color, 30%);
+        }
 
-          &:hover {
-            background: rgba($dark-bg, 0.9);
-          }
+        .avatar-actions {
+          button {
+            background: rgba($dark-bg, 0.6);
 
-          &.uploading {
-            background: rgba($dark-bg, 0.95);
+            &:hover {
+              background: rgba($dark-bg, 0.8);
+            }
+
+            &.remove-avatar {
+              background: rgba($danger-color, 0.4);
+
+              &:hover {
+                background: rgba($danger-color, 0.6);
+              }
+            }
           }
         }
       }
