@@ -38,7 +38,6 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Burada API çağrısı yapılacak
     const updatedUser = { ...user, ...formData };
     localStorage.setItem("user", JSON.stringify(updatedUser));
     setIsEditing(false);
@@ -52,13 +51,11 @@ const Profile = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Dosya tipini kontrol et
     if (!file.type.startsWith("image/")) {
       alert("Lütfen bir resim dosyası seçin");
       return;
     }
 
-    // Dosya boyutunu kontrol et (5MB)
     if (file.size > 5 * 1024 * 1024) {
       alert("Dosya boyutu 5MB'dan küçük olmalıdır");
       return;
