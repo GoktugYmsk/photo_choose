@@ -1,6 +1,6 @@
 @import "../../../variables";
 
-.login-container {
+.signup-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -12,7 +12,7 @@
   &.light {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 
-    .login-box {
+    .signup-box {
       background-color: #ffffff;
       color: $primary-color;
     }
@@ -28,7 +28,7 @@
       }
     }
 
-    .login-button {
+    .signup-button {
       background-color: $secondary-color;
       color: white;
 
@@ -41,7 +41,7 @@
   &.dark {
     background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);
 
-    .login-box {
+    .signup-box {
       background-color: #2c3e50;
       color: #ffffff;
     }
@@ -61,7 +61,7 @@
       }
     }
 
-    .login-button {
+    .signup-button {
       background-color: $secondary-color;
       color: white;
 
@@ -100,9 +100,9 @@
   }
 }
 
-.login-box {
+.signup-box {
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   padding: 2rem;
   border-radius: $border-radius;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -135,29 +135,28 @@
     }
   }
 
-  .form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .terms {
     margin-bottom: 1.5rem;
 
-    .remember-me {
+    .checkbox-label {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.5rem;
       cursor: pointer;
+      font-size: 0.9rem;
 
       input[type="checkbox"] {
+        margin-top: 0.25rem;
         cursor: pointer;
       }
-    }
 
-    .forgot-password {
-      font-size: 0.9rem;
+      span {
+        line-height: 1.4;
+      }
     }
   }
 
-  .login-button {
+  .signup-button {
     width: 100%;
     padding: 0.75rem;
     border: none;
@@ -167,7 +166,7 @@
     transition: all 0.3s ease;
   }
 
-  .register-link {
+  .login-link {
     text-align: center;
     margin-top: 1.5rem;
     font-size: 0.9rem;
@@ -180,13 +179,13 @@
 }
 
 @media (max-width: $mobile) {
-  .login-box {
+  .signup-box {
     padding: 1.5rem;
   }
 
-  .form-options {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-start !important;
+  .terms {
+    .checkbox-label {
+      font-size: 0.85rem;
+    }
   }
 }
