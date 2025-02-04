@@ -13,14 +13,18 @@ import AdminDashboard from "./components/AdminDashboard";
 // import UserDashboard from "./components/user/Dashboard";
 import "./App.scss";
 import CustomComponent from "./components/CustomComponent";
+import Profile from "./components/client/Profile";
+import Header from "./components/CustomComponent/Header";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<CustomComponent />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Register" element={<SignUp />} />
-      {/* 
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<CustomComponent />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<SignUp />} />
+        {/* 
       <Route
         path="/"
         element={
@@ -29,18 +33,27 @@ function App() {
           </ProtectedRoute>
         }
       /> */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute allowedRoles={["client"]}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
-      <Route
-        path="/admin/*"
-        element={
-          <ProtectedRoute allowedRoles={["admin"]}>
-            <AdminDashboard />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   );
 }
 

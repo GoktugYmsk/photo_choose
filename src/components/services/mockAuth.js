@@ -59,4 +59,40 @@ export const mockAuthService = {
       }, 500);
     });
   },
+
+  updateAvatar: (file) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const user = JSON.parse(localStorage.getItem("user"));
+          const updatedUser = {
+            ...user,
+            avatar: reader.result,
+          };
+          localStorage.setItem("user", JSON.stringify(updatedUser));
+          resolve(updatedUser);
+        };
+      }, 1000);
+    });
+  },
+
+  updateBanner: (file) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const user = JSON.parse(localStorage.getItem("user"));
+          const updatedUser = {
+            ...user,
+            banner: reader.result,
+          };
+          localStorage.setItem("user", JSON.stringify(updatedUser));
+          resolve(updatedUser);
+        };
+      }, 1000);
+    });
+  },
 };

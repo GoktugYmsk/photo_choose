@@ -6,7 +6,6 @@ import Footer from "./Footer";
 function CustomComponent() {
   return (
     <div>
-      <Header />
       <Content />
       <Footer />
     </div>
