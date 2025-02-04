@@ -33,6 +33,7 @@ body {
   line-height: $line-height-base;
   color: $primary-color;
   background-color: $light-bg;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button {
@@ -152,6 +153,11 @@ h6 {
     &:hover {
       background-color: darken($secondary-color, 10%);
     }
+  }
+
+  &-outline {
+    border-color: $secondary-color;
+    color: $secondary-color;
   }
 }
 
@@ -290,4 +296,175 @@ h6 {
 
 .slide-in {
   animation: slideIn 0.3s ease;
+}
+
+body {
+  &.light-theme {
+    background-color: theme-color("light", "bg-primary");
+    color: theme-color("light", "text-primary");
+
+    .card,
+    .auth-box,
+    .content-box {
+      background-color: theme-color("light", "bg-secondary");
+      color: theme-color("light", "text-primary");
+      border: 1px solid theme-color("light", "border-color");
+    }
+
+    input,
+    textarea,
+    select {
+      background-color: theme-color("light", "bg-secondary");
+      color: theme-color("light", "text-primary");
+      border-color: theme-color("light", "border-color");
+
+      &::placeholder {
+        color: rgba(theme-color("light", "text-primary"), 0.5);
+      }
+    }
+
+    .btn {
+      &-outline {
+        border-color: $secondary-color;
+        color: $secondary-color;
+      }
+    }
+
+    .nav-link {
+      color: theme-color("light", "text-primary");
+
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+  }
+
+  &.dark-theme {
+    background-color: theme-color("dark", "bg-primary");
+    color: theme-color("dark", "text-primary");
+
+    .card,
+    .auth-box,
+    .content-box {
+      background-color: theme-color("dark", "bg-secondary");
+      color: theme-color("dark", "text-primary");
+      border: 1px solid theme-color("dark", "border-color");
+    }
+
+    input,
+    textarea,
+    select {
+      background-color: theme-color("dark", "bg-secondary");
+      color: theme-color("dark", "text-primary");
+      border-color: theme-color("dark", "border-color");
+
+      &::placeholder {
+        color: rgba(theme-color("dark", "text-primary"), 0.5);
+      }
+    }
+
+    .btn {
+      &-outline {
+        border-color: $secondary-color;
+        color: $secondary-color;
+      }
+    }
+
+    .nav-link {
+      color: theme-color("dark", "text-primary");
+
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+
+    .header {
+      background-color: theme-color("dark", "bg-secondary");
+      border-bottom: 1px solid theme-color("dark", "border-color");
+    }
+
+    .footer {
+      background-color: theme-color("dark", "bg-secondary");
+      border-top: 1px solid theme-color("dark", "border-color");
+    }
+
+    .sidebar {
+      background-color: theme-color("dark", "bg-secondary");
+      border-right: 1px solid theme-color("dark", "border-color");
+    }
+
+    .form-control {
+      background-color: theme-color("dark", "bg-secondary");
+      border-color: theme-color("dark", "border-color");
+      color: theme-color("dark", "text-primary");
+
+      &:focus {
+        background-color: lighten(theme-color("dark", "bg-secondary"), 5%);
+        border-color: $secondary-color;
+      }
+    }
+
+    .modal,
+    .dialog {
+      background-color: theme-color("dark", "bg-secondary");
+      border: 1px solid theme-color("dark", "border-color");
+
+      .modal-header,
+      .dialog-header {
+        border-bottom: 1px solid theme-color("dark", "border-color");
+      }
+
+      .modal-footer,
+      .dialog-footer {
+        border-top: 1px solid theme-color("dark", "border-color");
+      }
+    }
+
+    table {
+      th,
+      td {
+        border-color: theme-color("dark", "border-color");
+      }
+
+      thead th {
+        background-color: lighten(theme-color("dark", "bg-secondary"), 5%);
+      }
+
+      tbody tr {
+        &:hover {
+          background-color: lighten(theme-color("dark", "bg-secondary"), 3%);
+        }
+      }
+    }
+
+    .dropdown-menu {
+      background-color: theme-color("dark", "bg-secondary");
+      border: 1px solid theme-color("dark", "border-color");
+
+      .dropdown-item {
+        color: theme-color("dark", "text-primary");
+
+        &:hover {
+          background-color: lighten(theme-color("dark", "bg-secondary"), 5%);
+        }
+      }
+    }
+  }
+}
+
+.card,
+.auth-box,
+.content-box,
+input,
+textarea,
+select,
+.btn,
+.nav-link,
+.header,
+.footer,
+.sidebar,
+.modal,
+.dialog,
+.dropdown-menu {
+  transition: all 0.3s ease;
 }

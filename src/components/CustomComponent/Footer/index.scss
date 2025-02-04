@@ -42,26 +42,20 @@
     }
 
     p {
-      color: rgba(white, 0.8);
       line-height: 1.6;
+      margin-bottom: 1rem;
     }
 
     ul {
       list-style: none;
       padding: 0;
-      margin: 0;
 
       li {
         margin-bottom: 0.5rem;
 
         a {
-          color: rgba(white, 0.8);
           text-decoration: none;
           transition: all 0.3s ease;
-
-          &:hover {
-            color: white;
-          }
         }
       }
     }
@@ -72,25 +66,59 @@
       gap: 0.5rem;
 
       a {
-        color: rgba(white, 0.8);
         text-decoration: none;
         transition: all 0.3s ease;
-
-        &:hover {
-          color: white;
-        }
       }
     }
   }
 
   .footer-bottom {
-    border-top: 1px solid rgba(white, 0.1);
+    border-top: 1px solid;
     padding-top: 1rem;
     text-align: center;
 
     p {
-      color: rgba(white, 0.6);
       font-size: 0.9rem;
+    }
+  }
+}
+
+body.light-theme {
+  .footer {
+    background-color: theme-color("light", "bg-secondary");
+    color: theme-color("light", "text-primary");
+    border-top: 1px solid theme-color("light", "border-color");
+
+    a {
+      color: theme-color("light", "text-secondary");
+
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+
+    .footer-bottom {
+      border-color: theme-color("light", "border-color");
+    }
+  }
+}
+
+body.dark-theme {
+  .footer {
+    background-color: theme-color("dark", "bg-secondary");
+    color: theme-color("dark", "text-primary");
+    border-top: 1px solid theme-color("dark", "border-color");
+
+    a {
+      color: theme-color("dark", "text-secondary");
+
+      &:hover {
+        color: lighten($secondary-color, 10%);
+      }
+    }
+
+    .footer-bottom {
+      border-color: theme-color("dark", "border-color");
     }
   }
 }

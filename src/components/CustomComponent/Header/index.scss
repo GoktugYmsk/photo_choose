@@ -6,6 +6,41 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: all 0.3s ease;
+
+  &.dark {
+    background-color: $dark-bg;
+    box-shadow: 0 2px 10px rgba(black, 0.2);
+
+    .logo {
+      color: white;
+    }
+
+    .nav-menu {
+      ul li a {
+        color: rgba(white, 0.8);
+
+        &:hover,
+        &.active {
+          color: white;
+        }
+      }
+    }
+
+    .theme-toggle {
+      color: white;
+    }
+
+    .menu-toggle span {
+      background-color: white;
+    }
+
+    @media (max-width: $mobile) {
+      .nav-menu {
+        background-color: $dark-bg;
+      }
+    }
+  }
 
   .header-container {
     max-width: $container-width;
@@ -14,6 +49,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: $primary-color;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+      transform: rotate(15deg);
+    }
   }
 
   .logo {
