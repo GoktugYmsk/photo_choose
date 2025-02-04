@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSun,
+  faMoon,
+  faUser,
+  faSignOutAlt,
+  faCaretDown,
+} from "@fortawesome/free-solid-svg-icons";
+import { mockAuthService } from "../../services/mockAuth";
 import "./index.scss";
 
 const Header = () => {
@@ -11,7 +18,11 @@ const Header = () => {
 
     return savedTheme ? savedTheme === "dark" : false;
   });
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     document.body.classList.remove("light-theme", "dark-theme");
@@ -27,6 +38,17 @@ const Header = () => {
     setIsDarkMode(newTheme);
     localStorage.setItem("theme", newTheme ? "dark" : "light");
   };
+
+  const handleLogout = async () => {
+    await mockAuthService.logout();
+    navigate("/auth/login");
+  };
+
+  useEffect(() => {
+    const closeDropdown = () => setUserDropdownOpen(false);
+    document.addEventListener("click", closeDropdown);
+    return () => document.removeEventListener("click", closeDropdown);
+  }, []);
 
   return (
     <header className={`header ${isDarkMode ? "dark" : "light"}`}>
@@ -74,13 +96,43 @@ const Header = () => {
               </li>
             </ul>
 
-            <div className="auth-buttons">
-              <Link to="/Login" className="login-btn">
-                Giriş Yap
-              </Link>
-              <Link to="/Register" className="register-btn">
-                Kayıt Ol
-              </Link>
+            <div className="auth-section">
+              {user ? (
+                <div
+                  className="user-dropdown"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setUserDropdownOpen(!userDropdownOpen);
+                  }}
+                >
+                  <button className="user-button">
+                    <FontAwesomeIcon icon={faUser} />
+                    <span>{user.name}</span>
+                    <FontAwesomeIcon icon={faCaretDown} />
+                  </button>
+                  {userDropdownOpen && (
+                    <div className="dropdown-menu">
+                      <Link to={user.role === "admin" ? "/admin" : "/profile"}>
+                        <FontAwesomeIcon icon={faUser} />
+                        Profilim
+                      </Link>
+                      <button onClick={handleLogout}>
+                        <FontAwesomeIcon icon={faSignOutAlt} />
+                        Çıkış Yap
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="auth-buttons">
+                  <Link to="/Login" className="login-btn">
+                    Giriş Yap
+                  </Link>
+                  <Link to="/Register" className="register-btn">
+                    Kayıt Ol
+                  </Link>
+                </div>
+              )}
             </div>
           </nav>
         </div>

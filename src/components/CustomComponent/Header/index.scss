@@ -206,3 +206,119 @@
     }
   }
 }
+
+.auth-section {
+  .user-dropdown {
+    position: relative;
+
+    .user-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: none;
+      border: 1px solid theme-color("light", "border-color");
+      border-radius: $border-radius;
+      color: theme-color("light", "text-primary");
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: rgba($primary-color, 0.05);
+      }
+
+      svg {
+        font-size: 0.9rem;
+
+        &:last-child {
+          margin-left: 0.25rem;
+        }
+      }
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.5rem;
+      background-color: theme-color("light", "bg-secondary");
+      border: 1px solid theme-color("light", "border-color");
+      border-radius: $border-radius;
+      box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+      min-width: 200px;
+      z-index: 1000;
+
+      a,
+      button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        color: theme-color("light", "text-primary");
+        text-decoration: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+
+        &:hover {
+          background-color: rgba($primary-color, 0.05);
+        }
+
+        svg {
+          font-size: 1rem;
+        }
+      }
+
+      button {
+        border-top: 1px solid theme-color("light", "border-color");
+        color: $danger-color;
+
+        &:hover {
+          background-color: rgba($danger-color, 0.05);
+        }
+      }
+    }
+  }
+}
+
+// Dark theme styles
+body.dark-theme {
+  .auth-section {
+    .user-dropdown {
+      .user-button {
+        color: theme-color("dark", "text-primary");
+        border-color: theme-color("dark", "border-color");
+
+        &:hover {
+          background-color: rgba(white, 0.05);
+        }
+      }
+
+      .dropdown-menu {
+        background-color: theme-color("dark", "bg-secondary");
+        border-color: theme-color("dark", "border-color");
+        box-shadow: 0 2px 8px theme-color("dark", "shadow-color");
+
+        a,
+        button {
+          color: theme-color("dark", "text-primary");
+
+          &:hover {
+            background-color: rgba(white, 0.05);
+          }
+        }
+
+        button {
+          border-top-color: theme-color("dark", "border-color");
+
+          &:hover {
+            background-color: rgba($danger-color, 0.1);
+          }
+        }
+      }
+    }
+  }
+}
