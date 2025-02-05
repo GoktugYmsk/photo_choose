@@ -221,6 +221,7 @@
   }
 }
 
+// Dark theme için ek stiller
 body.dark-theme {
   .demo-credentials {
     background-color: rgba($secondary-color, 0.1);
@@ -228,5 +229,82 @@ body.dark-theme {
 
   .error-message {
     background-color: rgba($danger-color, 0.2);
+  }
+}
+
+.login-container {
+  .auth-card {
+    .auth-header {
+      .login-icon {
+        font-size: 3rem;
+        color: $primary-color;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .auth-form {
+      .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        color: theme-color("light", "text-primary");
+
+        input[type="checkbox"] {
+          width: auto;
+          cursor: pointer;
+        }
+
+        label {
+          cursor: pointer;
+          margin-bottom: 0;
+        }
+      }
+
+      .forgot-password {
+        text-align: right;
+        margin-top: -1rem;
+        margin-bottom: 1.5rem;
+
+        a {
+          color: $primary-color;
+          text-decoration: none;
+          font-size: 0.875rem;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Dark theme styles
+body.dark-theme {
+  .login-container {
+    .auth-card {
+      .auth-header {
+        .login-icon {
+          color: lighten($primary-color, 10%);
+        }
+      }
+
+      .auth-form {
+        .remember-me {
+          color: theme-color("dark", "text-primary");
+        }
+
+        .forgot-password {
+          a {
+            color: lighten($primary-color, 10%);
+
+            &:hover {
+              color: lighten($primary-color, 20%);
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -3,8 +3,24 @@
 .photo-upload {
   padding: 2rem;
 
+  @media (max-width: $tablet) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: $mobile) {
+    padding: 1rem;
+  }
+
   .upload-header {
     margin-bottom: 2rem;
+
+    @media (max-width: $mobile) {
+      text-align: center;
+
+      h1 {
+        font-size: 1.75rem;
+      }
+    }
 
     h1 {
       font-size: 2rem;
@@ -26,6 +42,14 @@
     background-color: theme-color("light", "bg-secondary");
     margin-bottom: 2rem;
 
+    @media (max-width: $tablet) {
+      padding: 2rem;
+    }
+
+    @media (max-width: $mobile) {
+      padding: 1.5rem;
+    }
+
     &.drag-active {
       border-color: $secondary-color;
       background-color: rgba($secondary-color, 0.05);
@@ -36,12 +60,20 @@
         font-size: 4rem;
         color: $secondary-color;
         margin-bottom: 1rem;
+
+        @media (max-width: $mobile) {
+          font-size: 3rem;
+        }
       }
 
       h3 {
         font-size: 1.5rem;
         color: theme-color("light", "text-primary");
         margin-bottom: 0.5rem;
+
+        @media (max-width: $mobile) {
+          font-size: 1.25rem;
+        }
       }
 
       p {
@@ -58,6 +90,11 @@
         cursor: pointer;
         transition: all 0.3s ease;
         margin-bottom: 1rem;
+
+        @media (max-width: $mobile) {
+          width: 100%;
+          padding: 0.5rem 1rem;
+        }
 
         &:hover {
           background-color: darken($secondary-color, 10%);
@@ -77,6 +114,22 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1.5rem;
+
+      @media (max-width: $mobile) {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+
+        h2 {
+          font-size: 1.5rem;
+          color: theme-color("light", "text-primary");
+        }
+
+        .upload-button {
+          width: 100%;
+          justify-content: center;
+        }
+      }
 
       h2 {
         font-size: 1.5rem;
@@ -111,12 +164,19 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
 
-      @media (max-width: $tablet) {
+      @media (max-width: $desktop) {
         grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+
+      @media (max-width: $tablet) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
       }
 
       @media (max-width: $mobile) {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
+        gap: 0.75rem;
       }
 
       .photo-item {
@@ -153,6 +213,12 @@
           &:disabled {
             opacity: 0.7;
             cursor: not-allowed;
+          }
+
+          @media (max-width: $mobile) {
+            opacity: 1;
+            width: 1.75rem;
+            height: 1.75rem;
           }
         }
 
