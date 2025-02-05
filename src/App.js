@@ -13,6 +13,7 @@ import Header from "./components/CustomComponent/Header";
 import PhotoUpload from "./components/PhotoUpload.jsx";
 import PricingPlans from "./components/Pricing/index.jsx";
 import Checkout from "./components/client/Checkout/index.jsx";
+import Contests from "./components/Contest/index.jsx";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/Upload" element={<PhotoUpload />} />
         <Route path="/Plans" element={<PricingPlans />} />
         <Route path="/checkout/:plan" element={<Checkout />} />
+        <Route path="/contests" element={<Contests />} />
         {/* 
       <Route
         path="/"

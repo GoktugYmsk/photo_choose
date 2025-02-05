@@ -13,6 +13,7 @@ import {
   faMoon,
   faCloudUploadAlt,
   faCrown,
+  faTrophy,
 } from "@fortawesome/free-solid-svg-icons";
 import "./index.scss";
 
@@ -61,6 +62,11 @@ const Header = () => {
           >
             <FontAwesomeIcon icon={faHome} />
             Ana Sayfa
+          </NavLink>
+
+          <NavLink to="/contests" className="nav-item">
+            <FontAwesomeIcon icon={faTrophy} />
+            Yarışmalar
           </NavLink>
 
           <NavLink
