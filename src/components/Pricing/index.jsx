@@ -6,10 +6,26 @@ import {
   faStar,
   faCrown,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
 
 const PricingPlans = () => {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const handlePlanSelect = (planPath) => {
+    if (!user) {
+      navigate("/login", {
+        state: {
+          redirectTo: planPath,
+          message: "Plan seçimi için lütfen giriş yapın.",
+        },
+      });
+    } else {
+      navigate(planPath);
+    }
+  };
+
   const plans = [
     {
       name: "Ücretsiz",
@@ -21,7 +37,7 @@ const PricingPlans = () => {
         "Standart Destek",
       ],
       buttonText: "Şimdi Başla",
-      link: "/register",
+      path: "/",
       popular: false,
     },
     {
@@ -36,7 +52,7 @@ const PricingPlans = () => {
         "Özel Rozet",
       ],
       buttonText: "Premium'a Geç",
-      link: "/checkout/premium",
+      path: "/checkout/premium",
       popular: true,
     },
     {
@@ -52,7 +68,7 @@ const PricingPlans = () => {
         "Özel Etkinliklere Erişim",
       ],
       buttonText: "Pro'ya Geç",
-      link: "/checkout/pro",
+      path: "/checkout/pro",
       popular: false,
     },
   ];
@@ -88,9 +104,12 @@ const PricingPlans = () => {
                 </li>
               ))}
             </ul>
-            <Link to={plan.link} className="plan-button">
+            <button
+              className="plan-button"
+              onClick={() => handlePlanSelect(plan.path)}
+            >
               {plan.buttonText}
-            </Link>
+            </button>
           </div>
         ))}
       </div>

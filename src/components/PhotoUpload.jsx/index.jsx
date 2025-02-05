@@ -65,7 +65,6 @@ const PhotoUpload = () => {
   const removePhoto = (id) => {
     setSelectedPhotos((prev) => {
       const updated = prev.filter((photo) => photo.id !== id);
-      // URL'leri temizle
       prev.forEach((photo) => {
         if (photo.id === id) {
           URL.revokeObjectURL(photo.preview);
@@ -80,8 +79,7 @@ const PhotoUpload = () => {
 
     setIsUploading(true);
     try {
-      // Burada API çağrısı yapılacak
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Mock yükleme
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       alert("Fotoğraflar başarıyla yüklendi!");
       setSelectedPhotos([]);
     } catch (error) {
