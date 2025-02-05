@@ -230,6 +230,47 @@
       }
     }
   }
+
+  .upload-limit-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: rgba($primary-color, 0.1);
+    border-radius: $border-radius;
+    color: theme-color("light", "text-primary");
+
+    svg {
+      color: $primary-color;
+    }
+
+    .upgrade-link {
+      margin-left: 0.5rem;
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: rgba($danger-color, 0.1);
+    border-radius: $border-radius;
+    color: $danger-color;
+
+    svg {
+      font-size: 1.25rem;
+    }
+  }
 }
 
 // Dark theme styles
@@ -249,6 +290,15 @@ body.dark-theme {
         .photo-item {
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
+      }
+    }
+
+    .upload-limit-info {
+      background-color: rgba($primary-color, 0.2);
+      color: theme-color("dark", "text-primary");
+
+      .upgrade-link {
+        color: lighten($primary-color, 10%);
       }
     }
   }
