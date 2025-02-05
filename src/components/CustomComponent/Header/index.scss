@@ -179,24 +179,31 @@
           color: $primary-color;
         }
       }
-
       .theme-toggle {
         background: none;
         border: none;
-        color: theme-color("light", "text-primary");
         font-size: 1.25rem;
+        color: $primary-color;
         cursor: pointer;
         padding: 0.5rem;
+        border-radius: 50%;
         transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
+        position: fixed;
+        right: 50px;
+        z-index: 10004;
 
         &:hover {
-          color: $primary-color;
+          background-color: rgba($primary-color, 0.1);
+          transform: rotate(15deg);
         }
 
         @media (max-width: $mobile) {
-          margin: 1rem 0;
+          position: absolute;
+          top: 1rem;
+          left: 2rem;
+          order: -1;
+          margin: 0;
+          z-index: 1003;
         }
       }
 
@@ -297,6 +304,8 @@
         display: flex;
         gap: 1rem;
         align-items: center;
+        position: relative;
+        z-index: 2;
 
         @media (max-width: $mobile) {
           flex-direction: column;

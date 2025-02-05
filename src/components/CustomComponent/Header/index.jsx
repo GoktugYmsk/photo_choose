@@ -11,6 +11,8 @@ import {
   faCog,
   faSun,
   faMoon,
+  faCloudUploadAlt,
+  faCrown,
 } from "@fortawesome/free-solid-svg-icons";
 import "./index.scss";
 
@@ -70,6 +72,17 @@ const Header = () => {
             Fotoğraflar
           </NavLink>
 
+          {user && (
+            <NavLink
+              to="/upload"
+              className="nav-item"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <FontAwesomeIcon icon={faCloudUploadAlt} />
+              Fotoğraf Yükle
+            </NavLink>
+          )}
+
           <button className="theme-toggle" onClick={toggleTheme}>
             <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
           </button>
@@ -102,6 +115,17 @@ const Header = () => {
                   >
                     <FontAwesomeIcon icon={faUser} />
                     Profil
+                  </Link>
+                  <Link
+                    to="/Plans"
+                    className="dropdown-item"
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faCrown} />
+                    Ücretlendirme
                   </Link>
                   <Link
                     to="/settings"

@@ -2,7 +2,7 @@
 
 .profile-page {
   .profile-header {
-    margin-bottom: 6rem;
+    margin-bottom: 4rem;
     position: relative;
 
     .profile-cover {
@@ -11,45 +11,138 @@
       position: relative;
       overflow: visible;
 
-      @media (max-width: $tablet) {
-        height: 200px;
-      }
-
-      @media (max-width: $mobile) {
-        height: 150px;
-      }
-
       .banner-actions {
-        @media (max-width: $mobile) {
-          position: static;
-          margin-top: 1rem;
-          opacity: 1;
-          justify-content: center;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        gap: 0.5rem;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.3s ease;
 
-          button {
-            font-size: 0.9rem;
-            padding: 0.5rem 1rem;
+        button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.25rem;
+          background: rgba(black, 0.5);
+          color: white;
+          border: none;
+          border-radius: $border-radius;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(4px);
+
+          &:hover {
+            background: rgba(black, 0.7);
           }
+
+          &.remove-banner {
+            background: rgba($danger-color, 0.5);
+
+            &:hover {
+              background: rgba($danger-color, 0.7);
+            }
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+          }
+
+          .fa-spin {
+            animation: fa-spin 1s infinite linear;
+          }
+        }
+      }
+
+      &:hover {
+        .banner-actions {
+          opacity: 1;
         }
       }
     }
 
     .profile-avatar {
-      @media (max-width: $tablet) {
-        width: 120px;
-        height: 120px;
-        left: 5%;
+      position: absolute;
+      bottom: -50px;
+      left: 8%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid white;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      z-index: 10;
+      background-color: white;
+
+      .default-avatar {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: lighten($primary-color, 30%);
+        color: $primary-color;
+
+        svg {
+          font-size: 4rem;
+          opacity: 0.8;
+        }
       }
 
-      @media (max-width: $mobile) {
-        width: 100px;
-        height: 100px;
-        left: 50%;
-        transform: translateX(-50%);
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       .avatar-actions {
-        @media (max-width: $mobile) {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+
+        button {
+          flex: 1;
+          padding: 0.75rem;
+          background: rgba(black, 0.5);
+          color: white;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(4px);
+
+          &:hover {
+            background: rgba(black, 0.7);
+          }
+
+          &.remove-avatar {
+            background: rgba($danger-color, 0.5);
+
+            &:hover {
+              background: rgba($danger-color, 0.7);
+            }
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+          }
+
+          .fa-spin {
+            animation: fa-spin 1s infinite linear;
+          }
+        }
+      }
+
+      &:hover {
+        .avatar-actions {
           opacity: 1;
         }
       }
@@ -60,14 +153,6 @@
     padding: 0 2rem;
     margin-top: 2rem;
 
-    @media (max-width: $tablet) {
-      padding: 0 1rem;
-    }
-
-    @media (max-width: $mobile) {
-      padding: 0 0.5rem;
-    }
-
     .profile-info {
       background-color: theme-color("light", "bg-secondary");
       padding: 2rem;
@@ -76,28 +161,12 @@
       box-shadow: 0 2px 8px theme-color("light", "shadow-color");
       text-align: left;
 
-      @media (max-width: $mobile) {
-        padding: 1rem;
-      }
-
       .info-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 2rem;
         position: relative;
-
-        @media (max-width: $mobile) {
-          flex-direction: column;
-          gap: 1rem;
-          text-align: center;
-
-          .edit-button {
-            position: static;
-            width: 100%;
-            justify-content: center;
-          }
-        }
 
         h1 {
           font-size: 2rem;
@@ -128,15 +197,6 @@
         .form-group {
           margin-bottom: 1.5rem;
           text-align: left;
-
-          @media (max-width: $mobile) {
-            margin-bottom: 1rem;
-
-            input,
-            textarea {
-              padding: 0.5rem;
-            }
-          }
 
           label {
             display: block;
@@ -234,12 +294,10 @@
 
       @media (max-width: $tablet) {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
       }
 
       @media (max-width: $mobile) {
         grid-template-columns: 1fr;
-        gap: 0.75rem;
       }
 
       .stat-card {

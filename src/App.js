@@ -11,6 +11,7 @@ import CustomComponent from "./components/CustomComponent";
 import Profile from "./components/client/Profile";
 import Header from "./components/CustomComponent/Header";
 import PhotoUpload from "./components/PhotoUpload.jsx";
+import PricingPlans from "./components/Pricing/index.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<SignUp />} />
         <Route path="/Upload" element={<PhotoUpload />} />
+        <Route path="/Plans" element={<PricingPlans />} />
         {/* 
       <Route
         path="/"

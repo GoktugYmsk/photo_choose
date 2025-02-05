@@ -7,12 +7,15 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import "./index.scss";
+import { Link } from "react-router-dom";
 
 const PhotoUpload = () => {
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
+  const [showUpgradePlan, setShowUpgradePlan] = useState(false);
+  const [error, setError] = useState("");
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -82,7 +85,14 @@ const PhotoUpload = () => {
       alert("Fotoğraflar başarıyla yüklendi!");
       setSelectedPhotos([]);
     } catch (error) {
-      alert("Fotoğraflar yüklenirken bir hata oluştu");
+      if (error.response?.data?.redirectTo === "/pricing") {
+        setError(
+          "Fotoğraf yükleme limitinize ulaştınız. Daha fazla fotoğraf yüklemek için planınızı yükseltin."
+        );
+        setShowUpgradePlan(true);
+      } else {
+        setError("Fotoğraf yüklenirken bir hata oluştu.");
+      }
     } finally {
       setIsUploading(false);
     }
@@ -165,6 +175,15 @@ const PhotoUpload = () => {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {showUpgradePlan && (
+        <div className="upgrade-plan-alert">
+          <p>{error}</p>
+          <Link to="/pricing" className="upgrade-button">
+            Planları İncele
+          </Link>
         </div>
       )}
     </div>
