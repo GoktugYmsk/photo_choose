@@ -1,5 +1,14 @@
 @import "../../../variables";
 
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
 .content {
   flex: 1;
   transition: all 0.3s ease;
@@ -14,6 +23,7 @@
     }
   }
 
+  //
   .welcome-section {
     text-align: center;
     padding: 4rem 0;
@@ -66,7 +76,6 @@
     }
   }
 
-  // Featured Contests
   .featured-contests {
     margin-bottom: 3rem;
 
@@ -182,6 +191,42 @@
       }
     }
   }
+
+  .winner-card {
+    cursor: pointer;
+    will-change: transform;
+
+    &:hover {
+      .winner-image img {
+        transform: scale(1.05);
+      }
+    }
+
+    .winner-image {
+      img {
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999;
+  }
+
+  &.loading::after {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 body.light-theme {
@@ -190,8 +235,8 @@ body.light-theme {
     color: theme-color("light", "text-primary");
 
     .content-container {
-      // background-color: theme-color("light", "bg-secondary");
-      //   box-shadow: 0 0 20px theme-color("light", "shadow-color");
+      background-color: theme-color("light", "bg-secondary");
+      box-shadow: 0 0 20px theme-color("light", "shadow-color");
     }
   }
 }
@@ -206,4 +251,211 @@ body.dark-theme {
       box-shadow: 0 0 20px theme-color("dark", "shadow-color");
     }
   }
+}
+
+.winners-section {
+  margin: 4rem 0;
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 2rem;
+      color: theme-color("light", "text-primary");
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+
+      .trophy-icon {
+        color: #ffd700;
+      }
+    }
+
+    p {
+      color: theme-color("light", "text-secondary");
+      font-size: 1.1rem;
+    }
+  }
+
+  .winners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+
+    .winner-card {
+      background-color: theme-color("light", "bg-secondary");
+      border-radius: $border-radius;
+      overflow: hidden;
+      box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      .winner-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+
+        .winner-badge {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background-color: rgba(#ffd700, 0.9);
+          color: #000;
+          padding: 0.5rem 1rem;
+          border-radius: $border-radius;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+      }
+
+      .winner-info {
+        padding: 1.5rem;
+
+        .category {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: theme-color("light", "text-secondary");
+          font-size: 0.9rem;
+          margin-bottom: 0.5rem;
+
+          svg {
+            color: $primary-color;
+          }
+        }
+
+        h3 {
+          color: theme-color("light", "text-primary");
+          margin-bottom: 1rem;
+          font-size: 1.25rem;
+        }
+
+        .photographer {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+
+          .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+          }
+
+          span {
+            color: theme-color("light", "text-primary");
+            font-weight: 500;
+          }
+        }
+
+        .period {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: theme-color("light", "text-secondary");
+          font-size: 0.9rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .votes {
+          color: $primary-color;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+body.dark-theme {
+  .winners-section {
+    .winners-grid {
+      .winner-card {
+        background-color: theme-color("dark", "bg-secondary");
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+        .winner-info {
+          .category {
+            color: theme-color("dark", "text-secondary");
+          }
+
+          h3 {
+            color: theme-color("dark", "text-primary");
+          }
+
+          .photographer span {
+            color: theme-color("dark", "text-primary");
+          }
+
+          .period {
+            color: theme-color("dark", "text-secondary");
+          }
+
+          .votes {
+            color: lighten($primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(255, 255, 255, 0.2) 37%,
+    rgba(255, 255, 255, 0.1) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
