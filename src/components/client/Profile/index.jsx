@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCamera,
@@ -8,8 +9,11 @@ import {
   faImage,
   faUser,
   faTrash,
+  faTrophy,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { mockAuthService } from "../../services/mockAuth";
+import LazyLoading from "../../LazyLoading";
 import "./index.scss";
 
 const Profile = () => {
@@ -27,6 +31,8 @@ const Profile = () => {
   const [isUploadingBanner, setIsUploadingBanner] = useState(false);
   const fileInputRef = useRef(null);
   const bannerInputRef = useRef(null);
+  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -148,8 +154,68 @@ const Profile = () => {
     return <img src={user.avatar} alt={user.name} />;
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setUserData({
+        name: "Ahmet Yılmaz",
+        avatar: "/path/to/avatar.jpg",
+        bio: "Profesyonel fotoğrafçı ve gezgin",
+        stats: {
+          photos: 156,
+          contests: 24,
+          wins: 8,
+          likes: 1250,
+        },
+        recentPhotos: [],
+      });
+      setLoading(false);
+    }, 1500);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="profile-page">
+        <div className="profile-header">
+          <div className="profile-info">
+            <LazyLoading
+              height="120px"
+              width="120px"
+              className="avatar-loading"
+            />
+            <div className="user-details">
+              <LazyLoading height="32px" width="200px" />
+              <LazyLoading height="20px" width="300px" />
+            </div>
+          </div>
+        </div>
+
+        <div className="profile-stats">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="stat-item">
+              <LazyLoading height="40px" width="80px" />
+              <LazyLoading height="20px" width="100px" />
+            </div>
+          ))}
+        </div>
+
+        <div className="profile-content">
+          <div className="photos-grid">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <LazyLoading key={i} height="250px" />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="profile-page">
+    <motion.div
+      className="profile-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="profile-header">
         <div
           className="profile-cover"
@@ -391,7 +457,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

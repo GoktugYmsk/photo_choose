@@ -5,7 +5,9 @@ import {
   faSpinner,
   faImage,
   faTrash,
+  faExclamationTriangle,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import "./index.scss";
 
 const PhotoUpload = () => {
@@ -13,6 +15,18 @@ const PhotoUpload = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
+  const [showUpgradePlan, setShowUpgradePlan] = useState(false);
+  const [error, setError] = useState("");
+  const user = JSON.parse(localStorage.getItem("user")) || null;
+
+  const uploadLimits = {
+    free: 1,
+    premium: 10,
+    pro: Infinity,
+  };
+
+  const currentLimit = uploadLimits[user?.subscription || "free"];
+  const remainingUploads = currentLimit - (user?.photoCount || 0);
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -39,12 +53,20 @@ const PhotoUpload = () => {
   };
 
   const handleFiles = (files) => {
+    if (files.length > remainingUploads) {
+      setError(
+        `Planınıza göre sadece ${remainingUploads} fotoğraf daha yükleyebilirsiniz.`
+      );
+      setShowUpgradePlan(true);
+      return;
+    }
+
     const validFiles = files.filter(
       (file) => file.type.startsWith("image/") && file.size <= 5 * 1024 * 1024
     );
 
     if (validFiles.length !== files.length) {
-      alert(
+      setError(
         "Bazı dosyalar yüklenmedi. Lütfen sadece 5MB'dan küçük resim dosyaları seçin."
       );
     }
@@ -62,7 +84,7 @@ const PhotoUpload = () => {
   const removePhoto = (id) => {
     setSelectedPhotos((prev) => {
       const updated = prev.filter((photo) => photo.id !== id);
-      // URL'leri temizle
+
       prev.forEach((photo) => {
         if (photo.id === id) {
           URL.revokeObjectURL(photo.preview);
@@ -75,14 +97,55 @@ const PhotoUpload = () => {
   const handleUpload = async () => {
     if (selectedPhotos.length === 0) return;
 
+    if (selectedPhotos.length > remainingUploads) {
+      setError(
+        `Planınıza göre sadece ${remainingUploads} fotoğraf daha yükleyebilirsiniz.`
+      );
+      setShowUpgradePlan(true);
+      return;
+    }
+
     setIsUploading(true);
     try {
-      // Burada API çağrısı yapılacak
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Mock yükleme
-      alert("Fotoğraflar başarıyla yüklendi!");
+      const formData = new FormData();
+      selectedPhotos.forEach((photo) => {
+        formData.append("photos", photo.file);
+      });
+
+      const response = await fetch("/api/photos/upload", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw { response: { data } };
+      }
+
+      const updatedUser = {
+        ...user,
+        photoCount: user.photoCount + selectedPhotos.length,
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
       setSelectedPhotos([]);
+      setError("");
+      setShowUpgradePlan(false);
+
+      alert("Fotoğraflar başarıyla yüklendi!");
     } catch (error) {
-      alert("Fotoğraflar yüklenirken bir hata oluştu");
+      if (error.response?.data?.redirectTo === "/pricing") {
+        setError(
+          "Fotoğraf yükleme limitinize ulaştınız. Daha fazla fotoğraf yüklemek için planınızı yükseltin."
+        );
+        setShowUpgradePlan(true);
+      } else {
+        setError("Fotoğraf yüklenirken bir hata oluştu.");
+      }
     } finally {
       setIsUploading(false);
     }
@@ -93,7 +156,26 @@ const PhotoUpload = () => {
       <div className="upload-header">
         <h1>Fotoğraf Yükle</h1>
         <p>Yarışmaya katılmak için fotoğraflarınızı yükleyin</p>
+
+        <div className="upload-limit-info">
+          <FontAwesomeIcon icon={faImage} />
+          <span>
+            Kalan yükleme hakkı: {remainingUploads} fotoğraf
+            {user?.subscription !== "pro" && (
+              <Link to="/Plans" className="upgrade-link">
+                Daha fazlası için planınızı yükseltin
+              </Link>
+            )}
+          </span>
+        </div>
       </div>
+
+      {error && (
+        <div className="error-message">
+          <FontAwesomeIcon icon={faExclamationTriangle} />
+          {error}
+        </div>
+      )}
 
       <div
         className={`upload-area ${dragActive ? "drag-active" : ""}`}
@@ -165,6 +247,15 @@ const PhotoUpload = () => {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {showUpgradePlan && (
+        <div className="upgrade-plan-alert">
+          <p>{error}</p>
+          <Link to="/pricing" className="upgrade-button">
+            Planları İncele
+          </Link>
         </div>
       )}
     </div>

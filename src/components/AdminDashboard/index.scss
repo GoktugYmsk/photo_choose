@@ -2,6 +2,9 @@
 
 .admin-dashboard {
   padding: 2rem;
+  background: theme-color("light", "bg-primary");
+  color: theme-color("light", "text-primary");
+  min-height: 100vh;
 
   .admin-header {
     display: flex;
@@ -79,10 +82,206 @@
       }
     }
   }
+
+  section {
+    margin-bottom: 2rem;
+  }
+
+  .stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+
+    .stat-card {
+      background: theme-color("light", "bg-secondary");
+      padding: 1.5rem;
+      border-radius: $border-radius;
+      box-shadow: $shadow-md;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .stat-icon {
+        font-size: 2rem;
+        color: $secondary-color;
+      }
+
+      .stat-info {
+        h3 {
+          color: theme-color("light", "text-secondary");
+          font-size: 0.9rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: theme-color("light", "text-primary");
+          }
+
+          .trend {
+            font-size: 0.9rem;
+            &.positive {
+              color: $success-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .contests-calendar {
+    h2 {
+      margin-bottom: 1rem;
+      color: theme-color("light", "text-primary");
+    }
+
+    .contests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+
+      .contest-card {
+        background: theme-color("light", "bg-secondary");
+        padding: 1.5rem;
+        border-radius: $border-radius;
+        box-shadow: $shadow-md;
+
+        h3 {
+          color: theme-color("light", "text-primary");
+          margin-bottom: 1rem;
+        }
+
+        .contest-info {
+          p {
+            margin-bottom: 0.5rem;
+            color: theme-color("light", "text-secondary");
+
+            span {
+              font-weight: 500;
+            }
+          }
+
+          .status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.9rem;
+
+            &.aktif {
+              background: rgba($success-color, 0.1);
+              color: $success-color;
+            }
+
+            &.yakında {
+              background: rgba($warning-color, 0.1);
+              color: $warning-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .activity-feed {
+    h2 {
+      margin-bottom: 1rem;
+      color: theme-color("light", "text-primary");
+    }
+
+    .activities {
+      background: theme-color("light", "bg-secondary");
+      border-radius: $border-radius;
+      padding: 1rem;
+      box-shadow: $shadow-md;
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-bottom: 1px solid theme-color("light", "border-color");
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .activity-icon {
+          color: $secondary-color;
+          font-size: 1.25rem;
+        }
+
+        .activity-info {
+          color: theme-color("light", "text-primary");
+
+          .time {
+            margin-left: 0.5rem;
+            color: theme-color("light", "text-secondary");
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+
+  .system-status {
+    h2 {
+      margin-bottom: 1rem;
+      color: theme-color("light", "text-primary");
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+
+      .status-card {
+        background: theme-color("light", "bg-secondary");
+        padding: 1.5rem;
+        border-radius: $border-radius;
+        box-shadow: $shadow-md;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .status-icon {
+          font-size: 1.5rem;
+
+          &.active {
+            color: $success-color;
+          }
+
+          &.warning {
+            color: $warning-color;
+          }
+        }
+
+        .status-info {
+          h3 {
+            color: theme-color("light", "text-primary");
+            margin-bottom: 0.25rem;
+          }
+
+          p {
+            color: theme-color("light", "text-secondary");
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
 }
 
-Dark theme styles body.dark-theme {
+body.dark-theme {
   .admin-dashboard {
+    background: theme-color("dark", "bg-primary");
+    color: theme-color("dark", "text-primary");
+
     .admin-header {
       border-bottom-color: theme-color("dark", "border-color");
 
@@ -98,6 +297,177 @@ Dark theme styles body.dark-theme {
 
         h3 {
           color: theme-color("dark", "text-secondary");
+        }
+      }
+    }
+
+    .stat-card,
+    .contest-card,
+    .activities,
+    .status-card {
+      background: theme-color("dark", "bg-secondary");
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    h2,
+    h3 {
+      color: theme-color("dark", "text-primary");
+    }
+
+    .stat-info {
+      h3 {
+        color: theme-color("dark", "text-secondary");
+      }
+
+      .value {
+        color: theme-color("dark", "text-primary");
+      }
+    }
+
+    .activity-item {
+      border-color: theme-color("dark", "border-color");
+
+      .activity-info {
+        color: theme-color("dark", "text-primary");
+
+        .time {
+          color: theme-color("dark", "text-secondary");
+        }
+      }
+    }
+
+    .stats-section {
+      .stat-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        .stat-icon {
+          color: lighten($secondary-color, 15%);
+        }
+
+        .stat-info {
+          h3 {
+            color: rgba(255, 255, 255, 0.8);
+          }
+
+          .stat-value {
+            .value {
+              color: white;
+            }
+
+            .trend.positive {
+              color: lighten($success-color, 15%);
+            }
+          }
+        }
+      }
+    }
+
+    .activity-feed {
+      h2 {
+        color: white;
+      }
+
+      .activities {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        .activity-item {
+          border-color: rgba(255, 255, 255, 0.1);
+
+          .activity-icon {
+            color: lighten($secondary-color, 15%);
+          }
+
+          .activity-info {
+            color: rgba(255, 255, 255, 0.9);
+
+            strong {
+              color: white;
+              font-weight: 600;
+            }
+
+            .time {
+              color: rgba(255, 255, 255, 0.6);
+            }
+          }
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.05);
+          }
+        }
+      }
+    }
+
+    .system-status {
+      h2 {
+        color: white;
+      }
+
+      .status-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        .status-icon {
+          &.active {
+            color: lighten($success-color, 15%);
+          }
+
+          &.warning {
+            color: lighten($warning-color, 15%);
+          }
+        }
+
+        .status-info {
+          h3 {
+            color: white;
+          }
+
+          p {
+            color: rgba(255, 255, 255, 0.7);
+          }
+        }
+      }
+    }
+
+    .contests-calendar {
+      h2 {
+        color: white;
+      }
+
+      .contest-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        h3 {
+          color: white;
+        }
+
+        .contest-info {
+          p {
+            color: rgba(255, 255, 255, 0.7);
+
+            span {
+              color: white;
+              font-weight: 600;
+            }
+          }
+
+          .status {
+            &.aktif {
+              background: rgba($success-color, 0.2);
+              color: lighten($success-color, 15%);
+            }
+
+            &.yakında {
+              background: rgba($warning-color, 0.2);
+              color: lighten($warning-color, 15%);
+            }
+          }
+        }
+
+        &:hover {
+          background: lighten(theme-color("dark", "bg-secondary"), 3%);
         }
       }
     }

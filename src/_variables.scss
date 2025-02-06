@@ -60,7 +60,7 @@ $dark-theme: (
 @function theme-color($theme, $key) {
   @if $theme == "light" {
     @return map-get($light-theme, $key);
-  } @else {
+  } @else if $theme == "dark" {
     @return map-get($dark-theme, $key);
   }
 }

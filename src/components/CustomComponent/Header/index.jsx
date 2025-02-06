@@ -1,141 +1,194 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSun,
-  faMoon,
   faUser,
   faSignOutAlt,
-  faCaretDown,
+  faBars,
+  faTimes,
+  faHome,
+  faImage,
+  faCog,
+  faSun,
+  faMoon,
+  faCloudUploadAlt,
+  faCrown,
+  faTrophy,
 } from "@fortawesome/free-solid-svg-icons";
-import { mockAuthService } from "../../services/mockAuth";
 import "./index.scss";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-
-    return savedTheme ? savedTheme === "dark" : false;
-  });
-  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const location = useLocation();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(
+    document.body.classList.contains("dark-theme")
+  );
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user")) || null;
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  // useEffect(() => {
+  //   setIsDarkMode(false);
+  // }, []);
 
-  useEffect(() => {
-    document.body.classList.remove("light-theme", "dark-theme");
-    document.body.classList.add(isDarkMode ? "dark-theme" : "light-theme");
-  }, [isDarkMode]);
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    if (isDropdownOpen) setIsDropdownOpen(false);
   };
+
+  // const toggleTheme = () => {
+  //   console.log("isDarkMode", isDarkMode);
+  //   document.body.classList.toggle("dark-theme");
+  //   setIsDarkMode(!isDarkMode);
+  // };
 
   const toggleTheme = () => {
-    const newTheme = !isDarkMode;
-    setIsDarkMode(newTheme);
-    localStorage.setItem("theme", newTheme ? "dark" : "light");
+    document.body.classList.toggle("dark-theme");
+    setIsDarkMode((prevMode) => !prevMode);
   };
-
-  const handleLogout = async () => {
-    await mockAuthService.logout();
-    navigate("/auth/login");
-  };
-
-  useEffect(() => {
-    const closeDropdown = () => setUserDropdownOpen(false);
-    document.addEventListener("click", closeDropdown);
-    return () => document.removeEventListener("click", closeDropdown);
-  }, []);
 
   return (
-    <header className={`header ${isDarkMode ? "dark" : "light"}`}>
-      <div className="header-container">
+    <header className={`header ${isMenuOpen ? "menu-open" : ""}`}>
+      <div className="header-content">
         <Link to="/" className="logo">
+          <FontAwesomeIcon icon={faImage} />
           PhotoContest
         </Link>
 
-        <div className="header-right">
+        <button className="mobile-menu-button" onClick={toggleMenu}>
+          <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
+        </button>
+
+        <nav className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
+          <NavLink
+            to="/"
+            className="nav-item"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <FontAwesomeIcon icon={faHome} />
+            Ana Sayfa
+          </NavLink>
+
+          <NavLink to="/contests" className="nav-item">
+            <FontAwesomeIcon icon={faTrophy} />
+            Yarışmalar
+          </NavLink>
+
+          <NavLink
+            to="/photos"
+            className="nav-item"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <FontAwesomeIcon icon={faImage} />
+            Fotoğraflar
+          </NavLink>
+
+          {user && (
+            <NavLink
+              to="/upload"
+              className="nav-item"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <FontAwesomeIcon icon={faCloudUploadAlt} />
+              Fotoğraf Yükle
+            </NavLink>
+          )}
+
           <button className="theme-toggle" onClick={toggleTheme}>
             <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
           </button>
 
-          <button className="menu-toggle" onClick={toggleMenu}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-
-          <nav className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
-            <ul>
-              <li>
-                <Link
-                  to="/"
-                  className={location.pathname === "/" ? "active" : ""}
-                >
-                  Ana Sayfa
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contests"
-                  className={location.pathname === "/contests" ? "active" : ""}
-                >
-                  Yarışmalar
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/upload"
-                  className={location.pathname === "/upload" ? "active" : ""}
-                >
-                  Fotoğraf Yükle
-                </Link>
-              </li>
-            </ul>
-
-            <div className="auth-section">
-              {user ? (
-                <div
-                  className="user-dropdown"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setUserDropdownOpen(!userDropdownOpen);
-                  }}
-                >
-                  <button className="user-button">
+          {user ? (
+            <div className="user-menu">
+              <button
+                className="user-button"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <div className="user-avatar">
+                  {user.avatar ? (
+                    <img src={user.avatar} alt={user.name} />
+                  ) : (
                     <FontAwesomeIcon icon={faUser} />
-                    <span>{user.name}</span>
-                    <FontAwesomeIcon icon={faCaretDown} />
-                  </button>
-                  {userDropdownOpen && (
-                    <div className="dropdown-menu">
-                      <Link to={user.role === "admin" ? "/admin" : "/profile"}>
-                        <FontAwesomeIcon icon={faUser} />
-                        Profilim
-                      </Link>
-                      <button onClick={handleLogout}>
-                        <FontAwesomeIcon icon={faSignOutAlt} />
-                        Çıkış Yap
-                      </button>
-                    </div>
                   )}
                 </div>
-              ) : (
-                <div className="auth-buttons">
-                  <Link to="/Login" className="login-btn">
-                    Giriş Yap
+                <span className="user-name">{user.name}</span>
+              </button>
+
+              {isDropdownOpen && (
+                <div className="dropdown-menu">
+                  <Link
+                    to="/profile"
+                    className="dropdown-item"
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faUser} />
+                    Profil
                   </Link>
-                  <Link to="/Register" className="register-btn">
-                    Kayıt Ol
+                  <Link
+                    to="/Plans"
+                    className="dropdown-item"
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faCrown} />
+                    Ücretlendirme
                   </Link>
+                  <Link
+                    to="/settings"
+                    className="dropdown-item"
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faCog} />
+                    Ayarlar
+                  </Link>
+                  <button
+                    className="dropdown-item danger"
+                    onClick={() => {
+                      handleLogout();
+                      setIsDropdownOpen(false);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faSignOutAlt} />
+                    Çıkış Yap
+                  </button>
                 </div>
               )}
             </div>
-          </nav>
-        </div>
+          ) : (
+            <div className="auth-buttons">
+              <Link
+                to="/login"
+                className="nav-item"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <FontAwesomeIcon icon={faUser} />
+                Giriş Yap
+              </Link>
+              <Link
+                to="/register"
+                className="nav-item"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <FontAwesomeIcon icon={faUser} />
+                Kayıt Ol
+              </Link>
+            </div>
+          )}
+        </nav>
       </div>
     </header>
   );

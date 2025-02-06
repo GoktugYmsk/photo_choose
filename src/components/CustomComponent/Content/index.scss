@@ -1,8 +1,18 @@
 @import "../../../variables";
 
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
 .content {
   flex: 1;
   transition: all 0.3s ease;
+  background: theme-color("light", "bg-primary");
 
   .content-container {
     max-width: $container-width;
@@ -25,6 +35,7 @@
     h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
+      color: white;
 
       @media (max-width: $mobile) {
         font-size: 2rem;
@@ -36,6 +47,7 @@
       max-width: 600px;
       margin: 0 auto 2rem;
       opacity: 0.9;
+      color: rgba(white, 0.9);
     }
 
     .stats {
@@ -54,19 +66,19 @@
         align-items: center;
 
         .number {
+          color: white;
           font-size: 2rem;
           font-weight: 700;
         }
 
         .label {
+          color: rgba(white, 0.9);
           font-size: 0.9rem;
-          opacity: 0.8;
         }
       }
     }
   }
 
-  // Featured Contests
   .featured-contests {
     margin-bottom: 3rem;
 
@@ -74,7 +86,7 @@
       text-align: center;
       margin-bottom: 2rem;
       font-size: 2rem;
-      color: $primary-color;
+      color: theme-color("light", "text-primary");
     }
 
     .contests-grid {
@@ -92,10 +104,10 @@
     }
 
     .contest-card {
-      background: white;
+      background: theme-color("light", "bg-secondary");
       border-radius: $border-radius;
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba($primary-color, 0.1);
+      box-shadow: $shadow-md;
       transition: transform 0.3s ease;
 
       &:hover {
@@ -118,7 +130,7 @@
 
         h3 {
           margin-bottom: 1rem;
-          color: $primary-color;
+          color: theme-color("light", "text-primary");
         }
 
         .contest-details {
@@ -128,7 +140,7 @@
           font-size: 0.9rem;
 
           span {
-            color: rgba($primary-color, 0.8);
+            color: theme-color("light", "text-secondary");
 
             &.category {
               color: $secondary-color;
@@ -147,7 +159,7 @@
     h2 {
       margin-bottom: 2rem;
       font-size: 2rem;
-      color: $primary-color;
+      color: theme-color("light", "text-primary");
     }
 
     .steps {
@@ -171,16 +183,52 @@
         }
 
         h3 {
-          color: $primary-color;
+          color: theme-color("light", "text-primary");
           margin-bottom: 0.5rem;
         }
 
         p {
-          color: rgba($primary-color, 0.8);
+          color: theme-color("light", "text-secondary");
           font-size: 0.9rem;
         }
       }
     }
+  }
+
+  .winner-card {
+    cursor: pointer;
+    will-change: transform;
+
+    &:hover {
+      .winner-image img {
+        transform: scale(1.05);
+      }
+    }
+
+    .winner-image {
+      img {
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999;
+  }
+
+  &.loading::after {
+    opacity: 1;
+    visibility: visible;
   }
 }
 
@@ -190,20 +238,652 @@ body.light-theme {
     color: theme-color("light", "text-primary");
 
     .content-container {
-      // background-color: theme-color("light", "bg-secondary");
-      //   box-shadow: 0 0 20px theme-color("light", "shadow-color");
+      background-color: theme-color("light", "bg-secondary");
+      box-shadow: 0 0 20px theme-color("light", "shadow-color");
     }
   }
 }
 
 body.dark-theme {
   .content {
-    background-color: theme-color("dark", "bg-primary");
+    background: theme-color("dark", "bg-primary");
     color: theme-color("dark", "text-primary");
 
     .content-container {
       background-color: theme-color("dark", "bg-secondary");
       box-shadow: 0 0 20px theme-color("dark", "shadow-color");
     }
+
+    .welcome-section {
+      background: linear-gradient(
+        135deg,
+        darken($primary-color, 15%),
+        darken($secondary-color, 15%)
+      );
+    }
+
+    .featured-contests {
+      h2 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      .contest-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        .contest-info {
+          h3 {
+            color: theme-color("dark", "text-primary");
+          }
+
+          .contest-details span {
+            color: theme-color("dark", "text-secondary");
+          }
+        }
+      }
+    }
+
+    .how-it-works {
+      h2 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      .step {
+        h3 {
+          color: theme-color("dark", "text-primary");
+        }
+
+        p {
+          color: theme-color("dark", "text-secondary");
+        }
+      }
+    }
+
+    .trending-section {
+      h2 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      .trend-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        h3 {
+          color: theme-color("dark", "text-primary");
+        }
+
+        .trend-items {
+          .trend-item {
+            background: rgba(white, 0.05);
+
+            .name {
+              color: theme-color("dark", "text-primary");
+            }
+
+            .count {
+              color: theme-color("dark", "text-secondary");
+            }
+
+            &:hover {
+              background: rgba(white, 0.1);
+            }
+          }
+        }
+      }
+    }
+
+    .inspiration-section {
+      h2 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      .collection-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        .collection-info {
+          h3 {
+            color: theme-color("dark", "text-primary");
+          }
+
+          p {
+            color: theme-color("dark", "text-secondary");
+          }
+
+          .curator {
+            color: lighten($primary-color, 20%);
+          }
+        }
+      }
+    }
+  }
+}
+
+.winners-section {
+  margin: 4rem 0;
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 2rem;
+      color: theme-color("light", "text-primary");
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+
+      .trophy-icon {
+        color: #ffd700;
+      }
+    }
+
+    p {
+      color: theme-color("light", "text-secondary");
+      font-size: 1.1rem;
+    }
+  }
+
+  .winners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+
+    .winner-card {
+      background-color: theme-color("light", "bg-secondary");
+      border-radius: $border-radius;
+      overflow: hidden;
+      box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      .winner-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+
+        .winner-badge {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background-color: rgba(#ffd700, 0.9);
+          color: #000;
+          padding: 0.5rem 1rem;
+          border-radius: $border-radius;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+      }
+
+      .winner-info {
+        padding: 1.5rem;
+
+        .category {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: theme-color("light", "text-secondary");
+          font-size: 0.9rem;
+          margin-bottom: 0.5rem;
+
+          svg {
+            color: $primary-color;
+          }
+        }
+
+        h3 {
+          color: theme-color("light", "text-primary");
+          margin-bottom: 1rem;
+          font-size: 1.25rem;
+        }
+
+        .photographer {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+
+          .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+          }
+
+          span {
+            color: theme-color("light", "text-primary");
+            font-weight: 500;
+          }
+        }
+
+        .period {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: theme-color("light", "text-secondary");
+          font-size: 0.9rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .votes {
+          color: $primary-color;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+body.dark-theme {
+  .winners-section {
+    .winners-grid {
+      .winner-card {
+        background-color: theme-color("dark", "bg-secondary");
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+        .winner-info {
+          .category {
+            color: theme-color("dark", "text-secondary");
+          }
+
+          h3 {
+            color: theme-color("dark", "text-primary");
+          }
+
+          .photographer span {
+            color: theme-color("dark", "text-primary");
+          }
+
+          .period {
+            color: theme-color("dark", "text-secondary");
+          }
+
+          .votes {
+            color: lighten($primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(255, 255, 255, 0.2) 37%,
+    rgba(255, 255, 255, 0.1) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.category-filters {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .category-filter {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid $primary-color;
+    border-radius: $border-radius;
+    background: none;
+    color: $primary-color;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba($primary-color, 0.1);
+    }
+
+    &.active {
+      background: $primary-color;
+      color: white;
+    }
+  }
+}
+
+.popular-photographers {
+  margin: 4rem 0;
+
+  .photographers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+
+    .photographer-card {
+      background: theme-color("light", "bg-secondary");
+      padding: 1.5rem;
+      border-radius: $border-radius;
+      text-align: center;
+
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+      }
+
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 1rem 0;
+        color: theme-color("light", "text-secondary");
+      }
+
+      .follow-button {
+        width: 100%;
+        padding: 0.75rem;
+        background: $primary-color;
+        color: white;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+}
+
+.upcoming-contests {
+  margin: 4rem 0;
+
+  .contests-timeline {
+    display: grid;
+    gap: 1.5rem;
+
+    .contest-countdown {
+      background: theme-color("light", "bg-secondary");
+      padding: 1.5rem;
+      border-radius: $border-radius;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .contest-meta {
+        display: flex;
+        gap: 2rem;
+        color: theme-color("light", "text-secondary");
+      }
+
+      .countdown {
+        display: flex;
+        gap: 1rem;
+        font-size: 1.25rem;
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.trending-section {
+  margin: 4rem 0;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: theme-color("light", "text-primary");
+  }
+
+  .trend-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+
+    @media (max-width: $mobile) {
+      grid-template-columns: 1fr;
+    }
+
+    .trend-card {
+      background: theme-color("light", "bg-secondary");
+      padding: 1.5rem;
+      border-radius: $border-radius;
+      box-shadow: $shadow-md;
+
+      h3 {
+        margin-bottom: 1.5rem;
+        color: theme-color("light", "text-primary");
+        font-size: 1.25rem;
+      }
+
+      .trend-items {
+        display: grid;
+        gap: 1rem;
+
+        .trend-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.75rem;
+          background: rgba($primary-color, 0.05);
+          border-radius: $border-radius;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba($primary-color, 0.1);
+            transform: translateX(5px);
+          }
+
+          .name {
+            font-weight: 500;
+            color: theme-color("light", "text-primary");
+          }
+
+          .count {
+            color: theme-color("light", "text-secondary");
+          }
+
+          .trend {
+            &.positive {
+              color: $success-color;
+              font-weight: 500;
+            }
+
+            &.negative {
+              color: $danger-color;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.inspiration-section {
+  margin: 4rem 0;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: theme-color("light", "text-primary");
+  }
+
+  .collections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+
+    @media (max-width: $mobile) {
+      grid-template-columns: 1fr;
+    }
+
+    .collection-card {
+      background: theme-color("light", "bg-secondary");
+      border-radius: $border-radius;
+      overflow: hidden;
+      box-shadow: $shadow-md;
+      cursor: pointer;
+
+      .collection-cover {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        .image-count {
+          position: absolute;
+          bottom: 1rem;
+          right: 1rem;
+          background: rgba(black, 0.7);
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: $border-radius;
+          font-size: 0.9rem;
+          backdrop-filter: blur(4px);
+        }
+
+        &:hover img {
+          transform: scale(1.05);
+        }
+      }
+
+      .collection-info {
+        padding: 1.5rem;
+
+        h3 {
+          margin-bottom: 0.5rem;
+          color: theme-color("light", "text-primary");
+          font-size: 1.25rem;
+        }
+
+        p {
+          color: theme-color("light", "text-secondary");
+          margin-bottom: 1rem;
+          font-size: 0.9rem;
+        }
+
+        .curator {
+          display: inline-block;
+          font-size: 0.9rem;
+          color: $primary-color;
+          font-weight: 500;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+.lazy-image-container {
+  position: relative;
+  background-color: rgba($primary-color, 0.1);
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+  }
+
+  &.loading {
+    animation: pulse 1.5s infinite;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.loaded {
+      opacity: 1;
+    }
+  }
+}
+
+.section-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem;
+  color: $primary-color;
+  font-size: 1.25rem;
+
+  svg {
+    font-size: 2rem;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba($primary-color, 0.1);
+  }
+  50% {
+    background-color: rgba($primary-color, 0.2);
+  }
+  100% {
+    background-color: rgba($primary-color, 0.1);
   }
 }

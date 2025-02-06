@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
@@ -16,6 +11,12 @@ import CustomComponent from "./components/CustomComponent";
 import Profile from "./components/client/Profile";
 import Header from "./components/CustomComponent/Header";
 import PhotoUpload from "./components/PhotoUpload.jsx";
+import PricingPlans from "./components/Pricing/index.jsx";
+import Checkout from "./components/client/Checkout/index.jsx";
+import Contests from "./components/Contest/index.jsx";
+import InspirationDetail from "./components/CustomComponent/Content/sections/InspirationsDetail/InspirationsSectionDetails.jsx";
+import About from "./components/About/index.jsx";
+import Settings from "./components/settings/index.jsx";
 
 function App() {
   return (
@@ -26,6 +27,12 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<SignUp />} />
         <Route path="/Upload" element={<PhotoUpload />} />
+        <Route path="/Plans" element={<PricingPlans />} />
+        <Route path="/checkout/:plan" element={<Checkout />} />
+        <Route path="/contests" element={<Contests />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/inspirations/:slug" element={<InspirationDetail />} />
         {/* 
       <Route
         path="/"

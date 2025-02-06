@@ -1,0 +1,187 @@
+@import "../../variables";
+
+.pricing-container {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: $tablet) {
+    padding: 2rem 1rem;
+  }
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    h1 {
+      font-size: 2.5rem;
+      color: theme-color("light", "text-primary");
+      margin-bottom: 1rem;
+
+      @media (max-width: $mobile) {
+        font-size: 2rem;
+      }
+    }
+
+    p {
+      color: theme-color("light", "text-secondary");
+      font-size: 1.1rem;
+    }
+  }
+
+  .pricing-plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+
+    @media (max-width: $tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $mobile) {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing-card {
+      background-color: theme-color("light", "bg-secondary");
+      border-radius: $border-radius;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      &.popular {
+        border: 2px solid $primary-color;
+        transform: scale(1.05);
+
+        &:hover {
+          transform: scale(1.05) translateY(-5px);
+        }
+      }
+
+      .popular-badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: $primary-color;
+        color: white;
+        padding: 0.25rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+
+      .plan-icon {
+        font-size: 3rem;
+        color: $primary-color;
+        margin-bottom: 1.5rem;
+      }
+
+      h2 {
+        color: theme-color("light", "text-primary");
+        margin-bottom: 1rem;
+      }
+
+      .price {
+        font-size: 2.5rem;
+        color: theme-color("light", "text-primary");
+        margin-bottom: 2rem;
+
+        .currency {
+          font-size: 1.5rem;
+          vertical-align: super;
+        }
+
+        .period {
+          font-size: 1rem;
+          color: theme-color("light", "text-secondary");
+        }
+      }
+
+      .features {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 2rem;
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: theme-color("light", "text-primary");
+          margin-bottom: 0.75rem;
+
+          svg {
+            color: $success-color;
+          }
+        }
+      }
+
+      .plan-button {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        background-color: $primary-color;
+        color: white;
+        text-decoration: none;
+        border-radius: $border-radius;
+        transition: all 0.3s ease;
+        font-weight: 500;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+}
+
+body.dark-theme {
+  .pricing-container {
+    .pricing-header {
+      h1 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      p {
+        color: theme-color("dark", "text-secondary");
+      }
+    }
+
+    .pricing-plans {
+      .pricing-card {
+        background-color: theme-color("dark", "bg-secondary");
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+        h2 {
+          color: theme-color("dark", "text-primary");
+        }
+
+        .price {
+          color: theme-color("dark", "text-primary");
+
+          .period {
+            color: theme-color("dark", "text-secondary");
+          }
+        }
+
+        .features {
+          li {
+            color: theme-color("dark", "text-primary");
+          }
+        }
+
+        .plan-button {
+          // border: none;
+          &:hover {
+            background-color: lighten($primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}

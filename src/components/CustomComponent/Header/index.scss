@@ -1,284 +1,169 @@
 @import "../../../variables";
 
 .header {
-  background-color: white;
-  box-shadow: 0 2px 10px rgba($primary-color, 0.1);
+  background: theme-color("light", "bg-primary");
+  box-shadow: $shadow-sm;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: $z-index-sticky;
   transition: all 0.3s ease;
 
-  &.dark {
-    background-color: $dark-bg;
-    box-shadow: 0 2px 10px rgba(black, 0.2);
+  .header-content {
+    max-width: $container-width;
+    margin: 0 auto;
+    padding: $spacing-md $spacing-xl;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: $mobile) {
+      padding: $spacing-md;
+    }
 
     .logo {
-      color: white;
+      color: $primary-color;
+      text-decoration: none;
+      font-size: $font-size-lg;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+
+      svg {
+        font-size: 1.5rem;
+      }
+    }
+
+    .mobile-menu-button {
+      display: none;
+      background: none;
+      border: none;
+      color: theme-color("light", "text-primary");
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: $spacing-sm;
+
+      @media (max-width: $mobile) {
+        display: block;
+      }
     }
 
     .nav-menu {
-      ul li a {
-        color: rgba(white, 0.8);
+      display: flex;
+      align-items: center;
+      gap: $spacing-lg;
 
-        &:hover,
+      .nav-item {
+        color: theme-color("light", "text-primary");
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+        transition: color 0.3s ease;
+        font-weight: 500;
+
+        svg {
+          font-size: 1.2rem;
+        }
+
+        &:hover {
+          color: $secondary-color;
+        }
+
         &.active {
-          color: white;
+          color: $secondary-color;
         }
       }
-    }
 
-    .theme-toggle {
-      color: white;
-    }
+      .theme-toggle {
+        background: none;
+        border: none;
+        color: theme-color("light", "text-primary");
+        cursor: pointer;
+        padding: $spacing-sm;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
 
-    .menu-toggle span {
-      background-color: white;
-    }
-
-    @media (max-width: $mobile) {
-      .nav-menu {
-        background-color: $dark-bg;
+        &:hover {
+          color: $secondary-color;
+        }
       }
-    }
-  }
 
-  .header-container {
-    max-width: $container-width;
-    margin: 0 auto;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+      .user-menu {
+        position: relative;
 
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+        .user-button {
+          display: flex;
+          align-items: center;
+          gap: $spacing-sm;
+          background: none;
+          border: none;
+          color: theme-color("light", "text-primary");
+          cursor: pointer;
+          padding: $spacing-sm;
 
-  .theme-toggle {
-    background: none;
-    border: none;
-    font-size: 1.25rem;
-    color: $primary-color;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+          .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: $secondary-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
 
-    &:hover {
-      background-color: rgba($primary-color, 0.1);
-      transform: rotate(15deg);
-    }
-  }
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
 
-  .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: $primary-color;
-    text-decoration: none;
-  }
+          .user-name {
+            font-weight: 500;
+          }
+        }
 
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    background: none;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
+        .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background: theme-color("light", "bg-secondary");
+          border-radius: $border-radius;
+          box-shadow: $shadow-md;
+          min-width: 200px;
+          padding: $spacing-xs 0;
+          margin-top: $spacing-sm;
+          border: 1px solid theme-color("light", "border-color");
 
-    span {
-      display: block;
-      width: 25px;
-      height: 2px;
-      background-color: $primary-color;
-      transition: all 0.3s ease;
-    }
-  }
+          .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: $spacing-sm;
+            padding: $spacing-sm $spacing-md;
+            color: theme-color("light", "text-primary");
+            text-decoration: none;
+            transition: background-color 0.3s ease;
 
-  .nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+            &:hover {
+              background: rgba($secondary-color, 0.1);
+            }
 
-    ul {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
+            &.danger {
+              color: $danger-color;
 
-      li {
-        a {
-          color: $primary-color;
-          text-decoration: none;
-          font-weight: 500;
-          padding: 0.5rem;
-          transition: all 0.3s ease;
-
-          &:hover,
-          &.active {
-            color: $secondary-color;
+              &:hover {
+                background: rgba($danger-color, 0.1);
+              }
+            }
           }
         }
       }
-    }
-
-    .auth-buttons {
-      display: flex;
-      gap: 1rem;
-
-      .login-btn,
-      .register-btn {
-        padding: 0.5rem 1rem;
-        border-radius: $border-radius;
-        font-weight: 500;
-        transition: all 0.3s ease;
-      }
-
-      .login-btn {
-        color: $secondary-color;
-        border: 1px solid $secondary-color;
-
-        &:hover {
-          background-color: rgba($secondary-color, 0.1);
-        }
-      }
-
-      .register-btn {
-        background-color: $secondary-color;
-        color: white;
-
-        &:hover {
-          background-color: darken($secondary-color, 10%);
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: $mobile) {
-  .header {
-    .header-container {
-      padding: 1rem;
-    }
-
-    .menu-toggle {
-      display: flex;
-    }
-
-    .nav-menu {
-      position: fixed;
-      top: 70px;
-      left: 0;
-      right: 0;
-      background-color: white;
-      flex-direction: column;
-      padding: 1rem;
-      gap: 1rem;
-      transform: translateY(-100%);
-      opacity: 0;
-      transition: all 0.3s ease;
-      pointer-events: none;
-
-      &.active {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: all;
-      }
-
-      ul {
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-      }
 
       .auth-buttons {
-        flex-direction: column;
-        width: 100%;
-
-        a {
-          text-align: center;
-        }
-      }
-    }
-  }
-}
-
-.auth-section {
-  .user-dropdown {
-    position: relative;
-
-    .user-button {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: none;
-      border: 1px solid theme-color("light", "border-color");
-      border-radius: $border-radius;
-      color: theme-color("light", "text-primary");
-      cursor: pointer;
-      transition: all 0.3s ease;
-
-      &:hover {
-        background-color: rgba($primary-color, 0.05);
-      }
-
-      svg {
-        font-size: 0.9rem;
-
-        &:last-child {
-          margin-left: 0.25rem;
-        }
-      }
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      margin-top: 0.5rem;
-      background-color: theme-color("light", "bg-secondary");
-      border: 1px solid theme-color("light", "border-color");
-      border-radius: $border-radius;
-      box-shadow: 0 2px 8px theme-color("light", "shadow-color");
-      min-width: 200px;
-      z-index: 1000;
-
-      a,
-      button {
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        width: 100%;
-        padding: 0.75rem 1rem;
-        color: theme-color("light", "text-primary");
-        text-decoration: none;
-        background: none;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: left;
-
-        &:hover {
-          background-color: rgba($primary-color, 0.05);
-        }
-
-        svg {
-          font-size: 1rem;
-        }
-      }
-
-      button {
-        border-top: 1px solid theme-color("light", "border-color");
-        color: $danger-color;
-
-        &:hover {
-          background-color: rgba($danger-color, 0.05);
-        }
+        gap: $spacing-md;
       }
     }
   }
@@ -286,37 +171,127 @@
 
 // Dark theme styles
 body.dark-theme {
-  .auth-section {
-    .user-dropdown {
-      .user-button {
-        color: theme-color("dark", "text-primary");
-        border-color: theme-color("dark", "border-color");
+  .header {
+    background: theme-color("dark", "bg-primary");
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
-        &:hover {
-          background-color: rgba(white, 0.05);
-        }
+    .header-content {
+      .logo {
+        color: white;
       }
 
-      .dropdown-menu {
-        background-color: theme-color("dark", "bg-secondary");
-        border-color: theme-color("dark", "border-color");
-        box-shadow: 0 2px 8px theme-color("dark", "shadow-color");
+      .mobile-menu-button {
+        color: theme-color("dark", "text-primary");
+      }
 
-        a,
-        button {
+      .nav-menu {
+        .nav-item {
           color: theme-color("dark", "text-primary");
 
           &:hover {
-            background-color: rgba(white, 0.05);
+            color: lighten($secondary-color, 10%);
+          }
+
+          &.active {
+            color: lighten($secondary-color, 10%);
           }
         }
 
-        button {
-          border-top-color: theme-color("dark", "border-color");
+        .theme-toggle {
+          color: theme-color("dark", "text-primary");
 
           &:hover {
-            background-color: rgba($danger-color, 0.1);
+            color: lighten($secondary-color, 10%);
           }
+        }
+
+        .user-menu {
+          .user-button {
+            color: theme-color("dark", "text-primary");
+          }
+
+          .dropdown-menu {
+            background: theme-color("dark", "bg-secondary");
+            border-color: theme-color("dark", "border-color");
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+            .dropdown-item {
+              color: theme-color("dark", "text-primary");
+
+              &:hover {
+                background: rgba($secondary-color, 0.15);
+              }
+
+              &.danger {
+                color: lighten($danger-color, 10%);
+
+                &:hover {
+                  background: rgba($danger-color, 0.15);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile menu styles
+@media (max-width: $mobile) {
+  .header {
+    .header-content {
+      .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: theme-color("light", "bg-primary");
+        padding: $spacing-md;
+        flex-direction: column;
+        gap: $spacing-md;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: $shadow-md;
+
+        &.active {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .user-menu {
+          width: 100%;
+
+          .user-button {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .dropdown-menu {
+            position: static;
+            width: 100%;
+            margin-top: $spacing-xs;
+            box-shadow: none;
+          }
+        }
+
+        .auth-buttons {
+          width: 100%;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+
+  body.dark-theme {
+    .header {
+      .header-content {
+        .nav-menu {
+          background: theme-color("dark", "bg-primary");
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
       }
     }

@@ -1,0 +1,314 @@
+@import "../../variables";
+
+.settings-page {
+  padding: 2rem;
+  max-width: $container-width;
+  margin: 0 auto;
+
+  @media (max-width: $mobile) {
+    padding: 1rem;
+  }
+
+  .settings-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    background: theme-color("light", "bg-secondary");
+    border-radius: $border-radius;
+    box-shadow: $shadow-md;
+    overflow: hidden;
+
+    @media (max-width: $tablet) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .settings-sidebar {
+      background: theme-color("light", "bg-primary");
+      padding: 1.5rem;
+      border-right: 1px solid theme-color("light", "border-color");
+
+      @media (max-width: $tablet) {
+        padding: 1rem;
+        border-right: none;
+        border-bottom: 1px solid theme-color("light", "border-color");
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .tab-button {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        background: none;
+        color: theme-color("light", "text-primary");
+        cursor: pointer;
+        border-radius: $border-radius;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+
+        @media (max-width: $tablet) {
+          width: auto;
+          padding: 0.75rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        svg {
+          font-size: 1.2rem;
+          @media (max-width: $mobile) {
+            font-size: 1rem;
+          }
+        }
+
+        &:hover {
+          background: rgba($primary-color, 0.05);
+        }
+
+        &.active {
+          background: $primary-color;
+          color: white;
+        }
+      }
+    }
+
+    .settings-content {
+      padding: 2rem;
+
+      @media (max-width: $mobile) {
+        padding: 1rem;
+      }
+
+      h3 {
+        color: theme-color("light", "text-primary");
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        @media (max-width: $mobile) {
+          font-size: 1.25rem;
+        }
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+
+        @media (max-width: $mobile) {
+          margin-bottom: 1rem;
+        }
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          color: theme-color("light", "text-primary");
+          font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        select,
+        textarea {
+          width: 100%;
+          padding: 0.75rem;
+          border: 1px solid theme-color("light", "border-color");
+          border-radius: $border-radius;
+          background: theme-color("light", "bg-primary");
+          color: theme-color("light", "text-primary");
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+          }
+        }
+
+        textarea {
+          resize: vertical;
+          min-height: 100px;
+        }
+
+        .avatar-upload {
+          @media (max-width: $mobile) {
+            flex-direction: column;
+            align-items: flex-start;
+
+            .avatar-preview {
+              margin-bottom: 1rem;
+            }
+          }
+        }
+      }
+
+      .checkbox-label,
+      .radio-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        color: theme-color("light", "text-primary");
+        cursor: pointer;
+
+        input {
+          cursor: pointer;
+        }
+      }
+
+      .save-button {
+        padding: 0.75rem 1.5rem;
+        background: $primary-color;
+        color: white;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: darken($primary-color, 10%);
+        }
+
+        @media (max-width: $mobile) {
+          width: 100%;
+          padding: 0.875rem;
+          font-size: 1rem;
+        }
+      }
+
+      .notification-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+
+        @media (max-width: $mobile) {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .admin-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+
+        @media (max-width: $mobile) {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+      }
+
+      .email-templates {
+        .form-group {
+          @media (max-width: $mobile) {
+            textarea {
+              min-height: 120px;
+            }
+          }
+        }
+      }
+
+      input,
+      select,
+      textarea {
+        @media (max-width: $mobile) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+// Dark theme styles
+body.dark-theme {
+  .settings-page {
+    .settings-container {
+      background: theme-color("dark", "bg-secondary");
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+      .settings-sidebar {
+        background: theme-color("dark", "bg-primary");
+        border-color: theme-color("dark", "border-color");
+
+        .tab-button {
+          color: theme-color("dark", "text-primary");
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
+          }
+
+          &.active {
+            background: lighten($primary-color, 10%);
+          }
+        }
+      }
+
+      .settings-content {
+        h3 {
+          color: theme-color("dark", "text-primary");
+        }
+
+        .form-group {
+          label {
+            color: theme-color("dark", "text-primary");
+          }
+
+          input,
+          select,
+          textarea {
+            background: theme-color("dark", "bg-primary");
+            border-color: theme-color("dark", "border-color");
+            color: theme-color("dark", "text-primary");
+
+            &:focus {
+              border-color: lighten($primary-color, 10%);
+            }
+          }
+        }
+
+        .checkbox-label,
+        .radio-label {
+          color: theme-color("dark", "text-primary");
+        }
+      }
+    }
+  }
+}
+
+// Dark theme için mobil düzenlemeler
+body.dark-theme {
+  .settings-page {
+    .settings-container {
+      .settings-sidebar {
+        @media (max-width: $tablet) {
+          border-color: rgba(255, 255, 255, 0.1);
+          background: darken(theme-color("dark", "bg-primary"), 3%);
+        }
+
+        .tab-button {
+          @media (max-width: $mobile) {
+            background: transparent;
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.05);
+            }
+
+            &.active {
+              background: lighten($primary-color, 5%);
+            }
+          }
+        }
+      }
+
+      .settings-content {
+        @media (max-width: $mobile) {
+          background: theme-color("dark", "bg-secondary");
+        }
+      }
+    }
+  }
+}

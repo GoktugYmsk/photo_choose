@@ -1,0 +1,192 @@
+@import "../../../../../variables";
+
+.inspiration-detail {
+  padding: 2rem;
+  max-width: $container-width;
+  margin: 0 auto;
+
+  .loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    color: $primary-color;
+    font-size: 1.25rem;
+  }
+
+  .collection-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    border-radius: $border-radius;
+    color: white;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+
+      @media (max-width: $mobile) {
+        font-size: 2rem;
+      }
+    }
+
+    p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      opacity: 0.9;
+    }
+
+    .curator-info {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: rgba(white, 0.2);
+      border-radius: $border-radius;
+      font-size: 0.9rem;
+      backdrop-filter: blur(4px);
+    }
+  }
+
+  .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+
+    @media (max-width: $mobile) {
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
+
+    .photo-card {
+      background: theme-color("light", "bg-secondary");
+      border-radius: $border-radius;
+      overflow: hidden;
+      box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px theme-color("light", "shadow-color");
+      }
+
+      .lazy-image-container {
+        height: 250px;
+        position: relative;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover img {
+          transform: scale(1.05);
+        }
+      }
+
+      .photo-info {
+        padding: 1.5rem;
+
+        h3 {
+          font-size: 1.25rem;
+          color: theme-color("light", "text-primary");
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          color: theme-color("light", "text-secondary");
+          font-size: 0.9rem;
+          margin-bottom: 1rem;
+          line-height: 1.5;
+        }
+
+        .photographer {
+          display: inline-block;
+          color: $primary-color;
+          font-size: 0.9rem;
+          font-weight: 500;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+body.dark-theme {
+  .inspiration-detail {
+    .collection-header {
+      background: linear-gradient(
+        135deg,
+        darken($primary-color, 20%),
+        darken($secondary-color, 20%)
+      );
+    }
+
+    .photos-grid {
+      .photo-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+        &:hover {
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .photo-info {
+          h3 {
+            color: theme-color("dark", "text-primary");
+          }
+
+          p {
+            color: theme-color("dark", "text-secondary");
+          }
+
+          .photographer {
+            color: lighten($primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.inspiration-detail {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba($primary-color, 0.1) 25%,
+    rgba($primary-color, 0.2) 37%,
+    rgba($primary-color, 0.1) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
