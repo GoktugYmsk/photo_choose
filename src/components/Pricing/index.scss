@@ -140,7 +140,6 @@
   }
 }
 
-// Dark theme styles
 body.dark-theme {
   .pricing-container {
     .pricing-header {
@@ -177,6 +176,7 @@ body.dark-theme {
         }
 
         .plan-button {
+          // border: none;
           &:hover {
             background-color: lighten($primary-color, 10%);
           }

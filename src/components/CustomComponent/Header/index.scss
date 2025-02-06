@@ -1,367 +1,36 @@
 @import "../../../variables";
 
 .header {
-  background-color: theme-color("light", "bg-secondary");
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+  background: theme-color("light", "bg-primary");
+  box-shadow: $shadow-sm;
   position: sticky;
   top: 0;
-  z-index: 1000;
-
-  @media (max-width: $tablet) {
-    padding: 1rem;
-  }
-
-  &::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1001;
-  }
-
-  &.menu-open {
-    &::before {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
+  z-index: $z-index-sticky;
+  transition: all 0.3s ease;
 
   .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
+    max-width: $container-width;
     margin: 0 auto;
-    position: relative;
+    padding: $spacing-md $spacing-xl;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: $primary-color;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      z-index: 1000;
-
-      svg {
-        font-size: 1.75rem;
-      }
-
-      @media (max-width: $mobile) {
-        font-size: 1.25rem;
-      }
+    @media (max-width: $mobile) {
+      padding: $spacing-md;
     }
 
-    .nav-menu {
+    .logo {
+      color: $primary-color;
+      text-decoration: none;
+      font-size: $font-size-lg;
+      font-weight: bold;
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: $spacing-sm;
 
-      @media (max-width: $tablet) {
-        gap: 1.5rem;
-      }
-
-      @media (max-width: $mobile) {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        flex-direction: column;
-        background-color: theme-color("light", "bg-secondary");
-        width: 80%;
-        height: 100vh;
-        padding: 5rem 2rem 2rem;
-        transition: 0.3s ease-in-out;
-        box-shadow: -2px 0 8px theme-color("light", "shadow-color");
-        z-index: 1002;
-        align-items: flex-start;
-
-        &.active {
-          right: 0;
-        }
-
-        display: flex;
-        flex-direction: column;
-
-        .nav-item {
-          width: 100%;
-          padding: 0.75rem 0;
-          color: theme-color("light", "text-primary");
-
-          svg {
-            color: theme-color("light", "text-primary");
-          }
-
-          &:hover {
-            color: $primary-color;
-
-            svg {
-              color: $primary-color;
-            }
-          }
-
-          &.active {
-            color: $primary-color;
-
-            svg {
-              color: $primary-color;
-            }
-          }
-        }
-
-        .theme-toggle {
-          position: absolute;
-          top: 1rem;
-          left: 2rem;
-          order: -1;
-          margin: 0;
-          z-index: 1003;
-          color: theme-color("light", "text-primary");
-        }
-
-        .auth-buttons {
-          margin-top: 1rem;
-          width: 100%;
-
-          .nav-item {
-            color: inherit;
-          }
-        }
-
-        .user-menu {
-          width: 100%;
-          margin-top: 1rem;
-
-          .user-button {
-            width: 100%;
-            justify-content: flex-start;
-            padding: 0.75rem 0;
-          }
-
-          .dropdown-menu {
-            position: static;
-            box-shadow: none;
-            padding: 0;
-            margin-top: 0.5rem;
-
-            .dropdown-item {
-              padding: 0.75rem 0;
-            }
-          }
-        }
-      }
-
-      .nav-item {
-        text-decoration: none;
-        color: theme-color("light", "text-primary");
-        font-weight: 500;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-
-        svg {
-          font-size: 1.25rem;
-        }
-
-        &:hover {
-          color: $primary-color;
-        }
-
-        &.active {
-          color: $primary-color;
-        }
-      }
-      .theme-toggle {
-        background: none;
-        border: none;
-        font-size: 1.25rem;
-        color: $primary-color;
-        cursor: pointer;
-        padding: 0.5rem;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-        position: fixed;
-        right: 50px;
-        z-index: 10004;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-
-        &:hover {
-          background-color: rgba($primary-color, 0.1);
-          transform: rotate(15deg) scale(1.1);
-        }
-
-        &:active {
-          transform: rotate(30deg) scale(0.95);
-        }
-
-        @media (max-width: $mobile) {
-          position: absolute;
-          top: 1rem;
-          left: 2rem;
-          right: auto;
-          margin: 0;
-          z-index: 1003;
-
-          &:hover {
-            background-color: rgba($primary-color, 0.1);
-            transform: rotate(15deg);
-          }
-        }
-      }
-
-      .user-menu {
-        position: relative;
-
-        .user-button {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 0.5rem;
-          border: none;
-          background: none;
-          cursor: pointer;
-          color: theme-color("light", "text-primary");
-
-          .user-avatar {
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 50%;
-            overflow: hidden;
-            background-color: rgba($primary-color, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            img {
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-            }
-
-            svg {
-              font-size: 1.25rem;
-              color: $primary-color;
-            }
-          }
-
-          .user-name {
-            @media (max-width: $tablet) {
-              display: none;
-            }
-          }
-        }
-
-        .dropdown-menu {
-          position: absolute;
-          top: calc(100% + 0.5rem);
-          right: 0;
-          background-color: theme-color("light", "bg-secondary");
-          border-radius: $border-radius;
-          box-shadow: 0 2px 8px theme-color("light", "shadow-color");
-          padding: 0.5rem;
-          min-width: 200px;
-
-          @media (max-width: $mobile) {
-            position: static;
-            box-shadow: none;
-            min-width: 100%;
-            background: none;
-            padding: 0;
-            margin-top: 1rem;
-          }
-
-          .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            color: theme-color("light", "text-primary");
-            text-decoration: none;
-            border-radius: $border-radius;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-size: 1rem;
-
-            &:hover {
-              background-color: rgba($primary-color, 0.1);
-              color: $primary-color;
-            }
-
-            &.danger {
-              color: $danger-color;
-
-              &:hover {
-                background-color: rgba($danger-color, 0.1);
-              }
-            }
-          }
-        }
-      }
-
-      .auth-buttons {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        position: relative;
-        z-index: 2;
-
-        @media (max-width: $mobile) {
-          flex-direction: column;
-          width: 100%;
-          align-items: stretch;
-        }
-
-        .nav-item {
-          padding: 0.75rem 1.5rem;
-          border-radius: $border-radius;
-          transition: all 0.3s ease;
-          text-align: center;
-          font-weight: 500;
-
-          &:first-child {
-            border: 2px solid $primary-color;
-            color: $primary-color;
-            background: transparent;
-
-            &:hover {
-              background-color: $primary-color;
-              color: white;
-            }
-          }
-
-          &:last-child {
-            background-color: $primary-color;
-            color: white;
-            border: 2px solid $primary-color;
-
-            &:hover {
-              background-color: darken($primary-color, 10%);
-              border-color: darken($primary-color, 10%);
-            }
-          }
-
-          @media (max-width: $mobile) {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-          }
-        }
+      svg {
+        font-size: 1.5rem;
       }
     }
 
@@ -372,23 +41,138 @@
       color: theme-color("light", "text-primary");
       font-size: 1.5rem;
       cursor: pointer;
-      padding: 0.5rem;
-      z-index: 1003;
-      position: relative;
+      padding: $spacing-sm;
 
       @media (max-width: $mobile) {
         display: block;
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
+      }
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: $spacing-lg;
+
+      .nav-item {
+        color: theme-color("light", "text-primary");
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+        transition: color 0.3s ease;
+        font-weight: 500;
+
+        svg {
+          font-size: 1.2rem;
+        }
+
+        &:hover {
+          color: $secondary-color;
+        }
+
+        &.active {
+          color: $secondary-color;
+        }
+      }
+
+      .theme-toggle {
+        background: none;
+        border: none;
+        color: theme-color("light", "text-primary");
+        cursor: pointer;
+        padding: $spacing-sm;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+
+      .user-menu {
+        position: relative;
+
+        .user-button {
+          display: flex;
+          align-items: center;
+          gap: $spacing-sm;
+          background: none;
+          border: none;
+          color: theme-color("light", "text-primary");
+          cursor: pointer;
+          padding: $spacing-sm;
+
+          .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: $secondary-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .user-name {
+            font-weight: 500;
+          }
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background: theme-color("light", "bg-secondary");
+          border-radius: $border-radius;
+          box-shadow: $shadow-md;
+          min-width: 200px;
+          padding: $spacing-xs 0;
+          margin-top: $spacing-sm;
+          border: 1px solid theme-color("light", "border-color");
+
+          .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: $spacing-sm;
+            padding: $spacing-sm $spacing-md;
+            color: theme-color("light", "text-primary");
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+              background: rgba($secondary-color, 0.1);
+            }
+
+            &.danger {
+              color: $danger-color;
+
+              &:hover {
+                background: rgba($danger-color, 0.1);
+              }
+            }
+          }
+        }
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: $spacing-md;
       }
     }
   }
 }
 
+// Dark theme styles
 body.dark-theme {
   .header {
-    background-color: theme-color("dark", "bg-secondary");
+    background: theme-color("dark", "bg-primary");
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
     .header-content {
@@ -396,121 +180,119 @@ body.dark-theme {
         color: white;
       }
 
+      .mobile-menu-button {
+        color: theme-color("dark", "text-primary");
+      }
+
       .nav-menu {
-        @media (max-width: $mobile) {
-          background-color: theme-color("dark", "bg-secondary");
-
-          .nav-item {
-            color: theme-color("dark", "text-primary");
-
-            svg {
-              color: theme-color("dark", "text-primary");
-            }
-
-            &:hover,
-            &.active {
-              color: white;
-
-              svg {
-                color: white;
-              }
-            }
-          }
-
-          .theme-toggle {
-            color: theme-color("dark", "text-primary");
-          }
-        }
-
         .nav-item {
-          color: white;
+          color: theme-color("dark", "text-primary");
 
-          svg {
-            color: white;
+          &:hover {
+            color: lighten($secondary-color, 10%);
           }
 
-          &:hover,
           &.active {
-            color: white;
-
-            svg {
-              color: white;
-            }
+            color: lighten($secondary-color, 10%);
           }
         }
 
         .theme-toggle {
-          color: white;
+          color: theme-color("dark", "text-primary");
 
           &:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            color: lighten($secondary-color, 10%);
           }
         }
 
         .user-menu {
           .user-button {
             color: theme-color("dark", "text-primary");
-
-            .user-avatar {
-              background-color: rgba($primary-color, 0.2);
-
-              svg {
-                color: lighten($primary-color, 10%);
-              }
-            }
           }
 
           .dropdown-menu {
-            background-color: theme-color("dark", "bg-secondary");
+            background: theme-color("dark", "bg-secondary");
+            border-color: theme-color("dark", "border-color");
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 
             .dropdown-item {
               color: theme-color("dark", "text-primary");
 
               &:hover {
-                background-color: rgba($primary-color, 0.2);
-                color: lighten($primary-color, 10%);
+                background: rgba($secondary-color, 0.15);
               }
 
               &.danger {
                 color: lighten($danger-color, 10%);
 
                 &:hover {
-                  background-color: rgba($danger-color, 0.2);
+                  background: rgba($danger-color, 0.15);
                 }
               }
             }
           }
         }
+      }
+    }
+  }
+}
 
-        .auth-buttons {
-          color: white;
-          .nav-item {
-            &:first-child {
-              border-color: lighten($primary-color, 10%);
-              color: white;
+// Mobile menu styles
+@media (max-width: $mobile) {
+  .header {
+    .header-content {
+      .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: theme-color("light", "bg-primary");
+        padding: $spacing-md;
+        flex-direction: column;
+        gap: $spacing-md;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: $shadow-md;
 
-              &:hover {
-                background-color: lighten($primary-color, 10%);
-                color: white;
-              }
-            }
+        &.active {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
 
-            &:last-child {
-              background-color: lighten($primary-color, 10%);
-              border-color: lighten($primary-color, 10%);
-              color: white;
+        .user-menu {
+          width: 100%;
 
-              &:hover {
-                background-color: lighten($primary-color, 20%);
-                border-color: lighten($primary-color, 20%);
-              }
-            }
+          .user-button {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .dropdown-menu {
+            position: static;
+            width: 100%;
+            margin-top: $spacing-xs;
+            box-shadow: none;
           }
         }
-      }
 
-      .mobile-menu-button {
-        color: theme-color("dark", "text-primary");
+        .auth-buttons {
+          width: 100%;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+
+  body.dark-theme {
+    .header {
+      .header-content {
+        .nav-menu {
+          background: theme-color("dark", "bg-primary");
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
       }
     }
   }

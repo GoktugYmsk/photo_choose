@@ -162,7 +162,7 @@ const PhotoUpload = () => {
           <span>
             Kalan yükleme hakkı: {remainingUploads} fotoğraf
             {user?.subscription !== "pro" && (
-              <Link to="/pricing" className="upgrade-link">
+              <Link to="/Plans" className="upgrade-link">
                 Daha fazlası için planınızı yükseltin
               </Link>
             )}

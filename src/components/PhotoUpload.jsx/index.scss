@@ -274,13 +274,42 @@
 }
 
 body.dark-theme {
+  h1 {
+    font-size: 2rem;
+    color: theme-color("dark", "text-primary");
+    margin-bottom: 0.5rem;
+  }
   .photo-upload {
+    .upload-header {
+      h1 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      p {
+        color: theme-color("dark", "text-secondary");
+      }
+    }
+
     .upload-area {
       border-color: theme-color("dark", "border-color");
       background-color: theme-color("dark", "bg-secondary");
 
       &.drag-active {
-        background-color: rgba($secondary-color, 0.1);
+        background-color: rgba($secondary-color, 0.15);
+      }
+
+      .upload-content {
+        h3 {
+          color: theme-color("dark", "text-primary");
+        }
+
+        p {
+          color: theme-color("dark", "text-secondary");
+        }
+
+        .file-info {
+          color: theme-color("dark", "text-secondary");
+        }
       }
     }
 
@@ -296,8 +325,12 @@ body.dark-theme {
       background-color: rgba($primary-color, 0.2);
       color: theme-color("dark", "text-primary");
 
+      svg {
+        color: lighten($primary-color, 20%);
+      }
+
       .upgrade-link {
-        color: lighten($primary-color, 10%);
+        color: lighten($primary-color, 20%);
       }
     }
   }

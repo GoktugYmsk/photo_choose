@@ -12,6 +12,7 @@ html {
 .content {
   flex: 1;
   transition: all 0.3s ease;
+  background: theme-color("light", "bg-primary");
 
   .content-container {
     max-width: $container-width;
@@ -23,7 +24,6 @@ html {
     }
   }
 
-  // Welcome Section
   .welcome-section {
     text-align: center;
     padding: 4rem 0;
@@ -35,6 +35,7 @@ html {
     h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
+      color: white;
 
       @media (max-width: $mobile) {
         font-size: 2rem;
@@ -46,6 +47,7 @@ html {
       max-width: 600px;
       margin: 0 auto 2rem;
       opacity: 0.9;
+      color: rgba(white, 0.9);
     }
 
     .stats {
@@ -64,19 +66,19 @@ html {
         align-items: center;
 
         .number {
+          color: white;
           font-size: 2rem;
           font-weight: 700;
         }
 
         .label {
+          color: rgba(white, 0.9);
           font-size: 0.9rem;
-          opacity: 0.8;
         }
       }
     }
   }
 
-  // Featured Contests
   .featured-contests {
     margin-bottom: 3rem;
 
@@ -84,7 +86,7 @@ html {
       text-align: center;
       margin-bottom: 2rem;
       font-size: 2rem;
-      color: $primary-color;
+      color: theme-color("light", "text-primary");
     }
 
     .contests-grid {
@@ -102,10 +104,10 @@ html {
     }
 
     .contest-card {
-      background: white;
+      background: theme-color("light", "bg-secondary");
       border-radius: $border-radius;
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba($primary-color, 0.1);
+      box-shadow: $shadow-md;
       transition: transform 0.3s ease;
 
       &:hover {
@@ -128,7 +130,7 @@ html {
 
         h3 {
           margin-bottom: 1rem;
-          color: $primary-color;
+          color: theme-color("light", "text-primary");
         }
 
         .contest-details {
@@ -138,7 +140,7 @@ html {
           font-size: 0.9rem;
 
           span {
-            color: rgba($primary-color, 0.8);
+            color: theme-color("light", "text-secondary");
 
             &.category {
               color: $secondary-color;
@@ -150,7 +152,6 @@ html {
     }
   }
 
-  // How It Works
   .how-it-works {
     text-align: center;
     padding: 3rem 0;
@@ -158,7 +159,7 @@ html {
     h2 {
       margin-bottom: 2rem;
       font-size: 2rem;
-      color: $primary-color;
+      color: theme-color("light", "text-primary");
     }
 
     .steps {
@@ -182,12 +183,12 @@ html {
         }
 
         h3 {
-          color: $primary-color;
+          color: theme-color("light", "text-primary");
           margin-bottom: 0.5rem;
         }
 
         p {
-          color: rgba($primary-color, 0.8);
+          color: theme-color("light", "text-secondary");
           font-size: 0.9rem;
         }
       }
@@ -211,7 +212,6 @@ html {
     }
   }
 
-  // Sayfa geçişleri için overlay
   &::after {
     content: "";
     position: fixed;
@@ -232,7 +232,6 @@ html {
   }
 }
 
-// Light theme styles
 body.light-theme {
   .content {
     background-color: theme-color("light", "bg-primary");
@@ -245,15 +244,117 @@ body.light-theme {
   }
 }
 
-// Dark theme styles
 body.dark-theme {
   .content {
-    background-color: theme-color("dark", "bg-primary");
+    background: theme-color("dark", "bg-primary");
     color: theme-color("dark", "text-primary");
 
     .content-container {
       background-color: theme-color("dark", "bg-secondary");
       box-shadow: 0 0 20px theme-color("dark", "shadow-color");
+    }
+
+    .welcome-section {
+      background: linear-gradient(
+        135deg,
+        darken($primary-color, 15%),
+        darken($secondary-color, 15%)
+      );
+    }
+
+    .featured-contests {
+      h2 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      .contest-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        .contest-info {
+          h3 {
+            color: theme-color("dark", "text-primary");
+          }
+
+          .contest-details span {
+            color: theme-color("dark", "text-secondary");
+          }
+        }
+      }
+    }
+
+    .how-it-works {
+      h2 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      .step {
+        h3 {
+          color: theme-color("dark", "text-primary");
+        }
+
+        p {
+          color: theme-color("dark", "text-secondary");
+        }
+      }
+    }
+
+    .trending-section {
+      h2 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      .trend-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        h3 {
+          color: theme-color("dark", "text-primary");
+        }
+
+        .trend-items {
+          .trend-item {
+            background: rgba(white, 0.05);
+
+            .name {
+              color: theme-color("dark", "text-primary");
+            }
+
+            .count {
+              color: theme-color("dark", "text-secondary");
+            }
+
+            &:hover {
+              background: rgba(white, 0.1);
+            }
+          }
+        }
+      }
+    }
+
+    .inspiration-section {
+      h2 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      .collection-card {
+        background: theme-color("dark", "bg-secondary");
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        .collection-info {
+          h3 {
+            color: theme-color("dark", "text-primary");
+          }
+
+          p {
+            color: theme-color("dark", "text-secondary");
+          }
+
+          .curator {
+            color: lighten($primary-color, 20%);
+          }
+        }
+      }
     }
   }
 }
@@ -390,7 +491,6 @@ body.dark-theme {
   }
 }
 
-// Dark theme için kazananlar bölümü stilleri
 body.dark-theme {
   .winners-section {
     .winners-grid {
@@ -424,7 +524,6 @@ body.dark-theme {
   }
 }
 
-// Skeleton loading efekti
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -445,7 +544,6 @@ body.dark-theme {
   animation: shimmer 1.5s infinite;
 }
 
-// Smooth fade için utility class'lar
 .fade-enter {
   opacity: 0;
   transform: translateY(20px);
@@ -580,7 +678,7 @@ body.dark-theme {
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2rem;
-    color: $primary-color;
+    color: theme-color("light", "text-primary");
   }
 
   .trend-cards {
@@ -596,7 +694,7 @@ body.dark-theme {
       background: theme-color("light", "bg-secondary");
       padding: 1.5rem;
       border-radius: $border-radius;
-      box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+      box-shadow: $shadow-md;
 
       h3 {
         margin-bottom: 1.5rem;
@@ -655,7 +753,7 @@ body.dark-theme {
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2rem;
-    color: $primary-color;
+    color: theme-color("light", "text-primary");
   }
 
   .collections-grid {
@@ -671,7 +769,7 @@ body.dark-theme {
       background: theme-color("light", "bg-secondary");
       border-radius: $border-radius;
       overflow: hidden;
-      box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+      box-shadow: $shadow-md;
       cursor: pointer;
 
       .collection-cover {
@@ -733,60 +831,6 @@ body.dark-theme {
   }
 }
 
-// Dark theme için ek stiller
-body.dark-theme {
-  .trending-section {
-    .trend-card {
-      background: theme-color("dark", "bg-secondary");
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-
-      h3 {
-        color: theme-color("dark", "text-primary");
-      }
-
-      .trend-items {
-        .trend-item {
-          background: rgba($primary-color, 0.15);
-
-          &:hover {
-            background: rgba($primary-color, 0.2);
-          }
-
-          .name {
-            color: theme-color("dark", "text-primary");
-          }
-
-          .count {
-            color: theme-color("dark", "text-secondary");
-          }
-        }
-      }
-    }
-  }
-
-  .inspiration-section {
-    .collection-card {
-      background: theme-color("dark", "bg-secondary");
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-
-      .collection-info {
-        h3 {
-          color: theme-color("dark", "text-primary");
-        }
-
-        p {
-          color: theme-color("dark", "text-secondary");
-        }
-
-        .curator {
-          color: lighten($primary-color, 10%);
-        }
-      }
-    }
-  }
-}
-
-// Lazy loading için stil eklemeleri
 .lazy-image-container {
   position: relative;
   background-color: rgba($primary-color, 0.1);
@@ -795,7 +839,7 @@ body.dark-theme {
   &::before {
     content: "";
     display: block;
-    padding-top: 56.25%; // 16:9 aspect ratio
+    padding-top: 56.25%;
   }
 
   &.loading {

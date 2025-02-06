@@ -26,9 +26,9 @@ const Header = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user")) || null;
 
-  useEffect(() => {
-    setIsDarkMode(false);
-  }, []);
+  // useEffect(() => {
+  //   setIsDarkMode(false);
+  // }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -41,10 +41,15 @@ const Header = () => {
     if (isDropdownOpen) setIsDropdownOpen(false);
   };
 
+  // const toggleTheme = () => {
+  //   console.log("isDarkMode", isDarkMode);
+  //   document.body.classList.toggle("dark-theme");
+  //   setIsDarkMode(!isDarkMode);
+  // };
+
   const toggleTheme = () => {
-    console.log("isDarkMode", isDarkMode);
     document.body.classList.toggle("dark-theme");
-    setIsDarkMode(!isDarkMode);
+    setIsDarkMode((prevMode) => !prevMode);
   };
 
   return (
