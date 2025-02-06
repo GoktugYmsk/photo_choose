@@ -1,142 +1,374 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faClock,
+  faUsers,
   faTrophy,
-  faMedal,
-  faCalendarAlt,
+  faFilter,
+  faSearch,
+  faMoneyBill,
   faCamera,
+  faCalendarAlt,
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
-import image4 from "../../assest/image4.jpeg";
-import image5 from "../../assest/image5.jpeg";
-import image6 from "../../assest/image6.jpeg";
-import image7 from "../../assest/image7.jpeg";
+import LazyLoading from "../LazyLoading";
 import "./index.scss";
 
-const Contests = () => {
-  const [activeTab, setActiveTab] = useState("weekly");
-  const [selectedCategory, setSelectedCategory] = useState("nature");
+function Contests() {
+  const [loading, setLoading] = useState(true);
+  const [contests, setContests] = useState([]);
+  const [filter, setFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [pastWinners, setPastWinners] = useState([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const categories = [
-    { id: "nature", name: "Doğa" },
-    { id: "portrait", name: "Portre" },
-    { id: "street", name: "Sokak" },
-    { id: "architecture", name: "Mimari" },
-    { id: "abstract", name: "Soyut" },
+    "Tümü",
+    "Doğa",
+    "Portre",
+    "Sokak",
+    "Mimari",
+    "Seyahat",
+    "Spor",
+    "Makro",
   ];
 
-  const results = {
-    weekly: {
-      nature: [
+  useEffect(() => {
+    setTimeout(() => {
+      setContests([
         {
           id: 1,
-          title: "Yağmur Sonrası",
-          photographer: "Ahmet Yılmaz",
-          image: image4,
-          votes: 245,
-          rank: 1,
+          title: "Doğa'nın Renkleri",
+          description: "Doğanın en etkileyici anlarını yakalayın",
+          category: "Doğa",
+          prize: "₺15,000",
+          deadline: "2024-05-01",
+          participants: 156,
+          status: "active",
+          image: "https://picsum.photos/800/400?random=1",
+          requirements: ["JPG/PNG format", "Min. 3000x2000px", "Max 10MB"],
+          awards: [
+            "Birinci: ₺15,000",
+            "İkinci: ₺7,500",
+            "Üçüncü: ₺3,500",
+            "Mansiyon (2 adet): ₺1,000",
+          ],
         },
         {
           id: 2,
-          title: "Dağ Manzarası",
-          photographer: "Mehmet Demir",
-          image: image5,
-          votes: 198,
-          rank: 2,
+          title: "Modern Portreler",
+          description: "Modern yaşamın insan yüzündeki yansımaları",
+          category: "Portre",
+          prize: "₺12,000",
+          deadline: "2024-05-15",
+          participants: 89,
+          status: "upcoming",
+          image: "https://picsum.photos/800/400?random=2",
+          requirements: ["JPG format", "Min. 2500x2000px", "Max 8MB"],
+          awards: ["Birinci: ₺12,000", "İkinci: ₺6,000", "Üçüncü: ₺3,000"],
+        },
+      ]);
+      setPastWinners([
+        {
+          id: 1,
+          contestName: "Şehir Işıkları",
+          date: "Mart 2024",
+          winners: [
+            {
+              rank: 1,
+              name: "Ahmet Yılmaz",
+              photoUrl: "https://picsum.photos/400/300?random=10",
+              photoTitle: "Gece Köprüsü",
+              prize: "₺20,000",
+            },
+            {
+              rank: 2,
+              name: "Ayşe Kaya",
+              photoUrl: "https://picsum.photos/400/300?random=11",
+              photoTitle: "Metropol",
+              prize: "₺10,000",
+            },
+            {
+              rank: 3,
+              name: "Mehmet Demir",
+              photoUrl: "https://picsum.photos/400/300?random=12",
+              photoTitle: "Gökdelenler",
+              prize: "₺5,000",
+            },
+          ],
+        },
+        {
+          id: 2,
+          contestName: "Doğa'nın Sesi",
+          date: "Şubat 2024",
+          winners: [
+            {
+              rank: 1,
+              name: "Can Yıldız",
+              photoUrl: "https://picsum.photos/400/300?random=13",
+              photoTitle: "Yağmur Sonrası",
+              prize: "₺15,000",
+            },
+            {
+              rank: 2,
+              name: "Zeynep Ak",
+              photoUrl: "https://picsum.photos/400/300?random=14",
+              photoTitle: "Sis",
+              prize: "₺7,500",
+            },
+            {
+              rank: 3,
+              name: "Ali Kara",
+              photoUrl: "https://picsum.photos/400/300?random=15",
+              photoTitle: "Orman",
+              prize: "₺3,500",
+            },
+          ],
         },
         {
           id: 3,
-          title: "Göl Kenarı",
-          photographer: "Ayşe Kaya",
-          image: image6,
-          votes: 156,
-          rank: 3,
+          contestName: "Portreler",
+          date: "Ocak 2024",
+          winners: [
+            {
+              rank: 1,
+              name: "Elif Yılmaz",
+              photoUrl: "https://picsum.photos/400/300?random=16",
+              photoTitle: "Yaşlı Balıkçı",
+              prize: "₺18,000",
+            },
+            {
+              rank: 2,
+              name: "Murat Şen",
+              photoUrl: "https://picsum.photos/400/300?random=17",
+              photoTitle: "Çocuk Gülüşü",
+              prize: "₺9,000",
+            },
+            {
+              rank: 3,
+              name: "Seda Demir",
+              photoUrl: "https://picsum.photos/400/300?random=18",
+              photoTitle: "Sokak Müzisyeni",
+              prize: "₺4,500",
+            },
+          ],
         },
-      ],
-    },
-    monthly: {
-      nature: [
-        {
-          id: 4,
-          title: "Sonbahar",
-          photographer: "Ali Yıldız",
-          image: image7,
-          votes: 892,
-          rank: 1,
-        },
-      ],
-    },
-  };
+      ]);
+      setLoading(false);
+    }, 1500);
+  }, []);
 
-  const getRankIcon = (rank) => {
-    switch (rank) {
-      case 1:
-        return <FontAwesomeIcon icon={faTrophy} className="gold" />;
-      case 2:
-        return <FontAwesomeIcon icon={faMedal} className="silver" />;
-      case 3:
-        return <FontAwesomeIcon icon={faMedal} className="bronze" />;
-      default:
-        return null;
-    }
-  };
+  const filteredContests = contests.filter((contest) => {
+    const matchesFilter = filter === "all" || contest.status === filter;
+    const matchesCategory =
+      selectedCategory === "all" ||
+      selectedCategory.toLowerCase() === contest.category.toLowerCase();
+    const matchesSearch =
+      contest.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      contest.description.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesFilter && matchesSearch && matchesCategory;
+  });
+
+  if (loading) {
+    return (
+      <div className="contests-container">
+        <div className="contests-header">
+          <LazyLoading height="60px" />
+        </div>
+        <div className="contests-filters">
+          <LazyLoading height="50px" />
+        </div>
+        <div className="contests-grid">
+          {[1, 2, 3, 4].map((i) => (
+            <LazyLoading key={i} height="400px" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="contests-container">
+    <motion.div
+      className="contests-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="contests-header">
-        <h1>Yarışma Sonuçları</h1>
-        <p>Her hafta ve ay güncellenen en iyi fotoğraflar</p>
+        <h1>Aktif Yarışmalar</h1>
+        <p>Katılabileceğiniz yarışmaları keşfedin</p>
       </div>
 
-      <div className="contests-nav">
-        <div className="period-tabs">
-          <button
-            className={`tab ${activeTab === "weekly" ? "active" : ""}`}
-            onClick={() => setActiveTab("weekly")}
-          >
-            <FontAwesomeIcon icon={faCalendarAlt} />
-            Haftalık
-          </button>
-          <button
-            className={`tab ${activeTab === "monthly" ? "active" : ""}`}
-            onClick={() => setActiveTab("monthly")}
-          >
-            <FontAwesomeIcon icon={faCalendarAlt} />
-            Aylık
-          </button>
+      <div className="contests-filters">
+        <div className="search-bar">
+          <FontAwesomeIcon icon={faSearch} />
+          <input
+            type="text"
+            placeholder="Yarışma ara..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
 
-        <div className="category-select">
-          <FontAwesomeIcon icon={faCamera} />
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+        <div className="category-filter">
+          {categories.map((category) => (
+            <button
+              key={category}
+              className={
+                selectedCategory === category.toLowerCase() ? "active" : ""
+              }
+              onClick={() => setSelectedCategory(category.toLowerCase())}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        <div className="filter-buttons">
+          <button
+            className={filter === "all" ? "active" : ""}
+            onClick={() => setFilter("all")}
           >
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
+            <FontAwesomeIcon icon={faFilter} />
+            Tümü
+          </button>
+          <button
+            className={filter === "active" ? "active" : ""}
+            onClick={() => setFilter("active")}
+          >
+            <FontAwesomeIcon icon={faClock} />
+            Aktif
+          </button>
+          <button
+            className={filter === "upcoming" ? "active" : ""}
+            onClick={() => setFilter("upcoming")}
+          >
+            <FontAwesomeIcon icon={faCalendarAlt} />
+            Yaklaşan
+          </button>
         </div>
       </div>
+      <div className="contests-grid">
+        {filteredContests.map((contest) => (
+          <motion.div
+            key={contest.id}
+            className={`contest-card ${contest.status}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="contest-image">
+              <img src={contest.image} alt={contest.title} />
+              <div className="contest-status">{contest.status}</div>
+              <div className="contest-prize">
+                <FontAwesomeIcon icon={faTrophy} />
+                {contest.prize}
+              </div>
+            </div>
+            <div className="contest-content">
+              <div className="contest-category">
+                <FontAwesomeIcon icon={faTag} />
+                {contest.category}
+              </div>
+              <h3>{contest.title}</h3>
+              <p>{contest.description}</p>
 
-      <div className="contest-results">
-        {results[activeTab][selectedCategory]?.map((photo) => (
-          <div key={photo.id} className="photo-card">
-            <div className="rank-badge">{getRankIcon(photo.rank)}</div>
-            <div className="photo-image">
-              <img src={photo.image} alt={photo.title} />
+              <div className="contest-details">
+                <div className="detail-item">
+                  <FontAwesomeIcon icon={faClock} />
+                  <span>Son: {contest.deadline}</span>
+                </div>
+                <div className="detail-item">
+                  <FontAwesomeIcon icon={faUsers} />
+                  <span>{contest.participants} Katılımcı</span>
+                </div>
+              </div>
+
+              <div className="contest-requirements">
+                <h4>Gereksinimler:</h4>
+                <ul>
+                  {contest.requirements.map((req, index) => (
+                    <li key={index}>{req}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="contest-awards">
+                <h4>Ödüller:</h4>
+                <ul>
+                  {contest.awards.map((award, index) => (
+                    <li key={index}>{award}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <button
+                className={`apply-button ${
+                  contest.status === "upcoming" ? "disabled" : ""
+                }`}
+                disabled={contest.status === "upcoming"}
+              >
+                {contest.status === "upcoming" ? "Yakında" : "Hemen Katıl"}
+              </button>
             </div>
-            <div className="photo-info">
-              <h3>{photo.title}</h3>
-              <p className="photographer">{photo.photographer}</p>
-              <p className="votes">{photo.votes} oy</p>
-            </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+
+      <div className="past-winners-section">
+        <h2>
+          <FontAwesomeIcon icon={faTrophy} />
+          Son Yarışma Kazananları
+        </h2>
+        {pastWinners.length > 0 ? (
+          <div className="winners-grid">
+            {pastWinners.map((contest) => (
+              <div key={contest.id} className="winner-contest-card">
+                <div className="contest-info">
+                  <h3>{contest.contestName}</h3>
+                  <span className="date">{contest.date}</span>
+                </div>
+                <div className="winners-list">
+                  {contest.winners.map((winner) => (
+                    <motion.div
+                      key={winner.rank}
+                      className="winner-item"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="winner-photo">
+                        <img src={winner.photoUrl} alt={winner.photoTitle} />
+                        <div className="winner-rank">
+                          {winner.rank === 1 && "🥇"}
+                          {winner.rank === 2 && "🥈"}
+                          {winner.rank === 3 && "🥉"}
+                        </div>
+                      </div>
+                      <div className="winner-info">
+                        <h4>{winner.photoTitle}</h4>
+                        <p className="photographer">{winner.name}</p>
+                        <p className="prize">{winner.prize}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="no-winners">
+            <p>Henüz sonuçlanmış yarışma bulunmuyor.</p>
+          </div>
+        )}
+      </div>
+    </motion.div>
   );
-};
+}
 
 export default Contests;

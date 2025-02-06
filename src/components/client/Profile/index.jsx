@@ -44,7 +44,6 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Burada API çağrısı yapılacak
     const updatedUser = { ...user, ...formData };
     localStorage.setItem("user", JSON.stringify(updatedUser));
     setIsEditing(false);
@@ -58,13 +57,11 @@ const Profile = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Dosya tipini kontrol et
     if (!file.type.startsWith("image/")) {
       alert("Lütfen bir resim dosyası seçin");
       return;
     }
 
-    // Dosya boyutunu kontrol et (5MB)
     if (file.size > 5 * 1024 * 1024) {
       alert("Dosya boyutu 5MB'dan küçük olmalıdır");
       return;
@@ -158,7 +155,6 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    // Simüle edilmiş veri yükleme
     setTimeout(() => {
       setUserData({
         name: "Ahmet Yılmaz",
@@ -170,9 +166,7 @@ const Profile = () => {
           wins: 8,
           likes: 1250,
         },
-        recentPhotos: [
-          // ... fotoğraf verileri
-        ],
+        recentPhotos: [],
       });
       setLoading(false);
     }, 1500);
