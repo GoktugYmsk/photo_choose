@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,6 +26,10 @@ const Header = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user")) || null;
 
+  useEffect(() => {
+    setIsDarkMode(false);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -38,6 +42,7 @@ const Header = () => {
   };
 
   const toggleTheme = () => {
+    console.log("isDarkMode", isDarkMode);
     document.body.classList.toggle("dark-theme");
     setIsDarkMode(!isDarkMode);
   };

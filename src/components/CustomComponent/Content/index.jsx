@@ -51,13 +51,13 @@ const Content = ({ children }) => {
     },
   };
 
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  // const staggerContainer = {
+  //   animate: {
+  //     transition: {
+  //       staggerChildren: 0.1,
+  //     },
+  //   },
+  // };
 
   return (
     <motion.main

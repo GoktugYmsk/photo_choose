@@ -672,6 +672,7 @@ body.dark-theme {
       border-radius: $border-radius;
       overflow: hidden;
       box-shadow: 0 2px 8px theme-color("light", "shadow-color");
+      cursor: pointer;
 
       .collection-cover {
         position: relative;

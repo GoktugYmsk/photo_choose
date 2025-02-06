@@ -14,6 +14,7 @@ import PhotoUpload from "./components/PhotoUpload.jsx";
 import PricingPlans from "./components/Pricing/index.jsx";
 import Checkout from "./components/client/Checkout/index.jsx";
 import Contests from "./components/Contest/index.jsx";
+import InspirationDetail from "./components/CustomComponent/Content/sections/InspirationsDetail/InspirationsSectionDetails.jsx";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/Plans" element={<PricingPlans />} />
         <Route path="/checkout/:plan" element={<Checkout />} />
         <Route path="/contests" element={<Contests />} />
+        <Route path="/inspirations/:slug" element={<InspirationDetail />} />
         {/* 
       <Route
         path="/"

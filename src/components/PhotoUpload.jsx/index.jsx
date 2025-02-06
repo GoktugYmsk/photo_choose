@@ -126,7 +126,6 @@ const PhotoUpload = () => {
         throw { response: { data } };
       }
 
-      //
       const updatedUser = {
         ...user,
         photoCount: user.photoCount + selectedPhotos.length,
@@ -158,7 +157,6 @@ const PhotoUpload = () => {
         <h1>Fotoğraf Yükle</h1>
         <p>Yarışmaya katılmak için fotoğraflarınızı yükleyin</p>
 
-        {/* Yükleme limiti bilgisi */}
         <div className="upload-limit-info">
           <FontAwesomeIcon icon={faImage} />
           <span>
