@@ -29,6 +29,10 @@ const Content = ({ children }) => {
   const [winners, setWinners] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const pageVariants = {
     initial: {
       opacity: 0,
