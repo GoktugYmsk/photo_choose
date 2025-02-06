@@ -670,3 +670,47 @@ body.dark-theme {
     transform: rotate(360deg);
   }
 }
+
+.avatar-loading {
+  border-radius: 50% !important;
+}
+
+.profile-header {
+  .profile-info {
+    .user-details {
+      flex: 1;
+
+      .lazy-loading {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+.profile-stats {
+  .stat-item {
+    .lazy-loading {
+      &:first-child {
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+}
+
+.photos-grid {
+  .lazy-loading {
+    aspect-ratio: 16/9;
+    width: 100%;
+  }
+}
+
+body.dark-theme {
+  .lazy-loading {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 25%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.05) 75%
+    );
+  }
+}

@@ -1,0 +1,31 @@
+@import "../../variables";
+
+.lazy-loading {
+  background: linear-gradient(
+    90deg,
+    theme-color("light", "skeleton-start") 25%,
+    theme-color("light", "skeleton-end") 50%,
+    theme-color("light", "skeleton-start") 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: $border-radius;
+
+  body.dark-theme & {
+    background: linear-gradient(
+      90deg,
+      theme-color("dark", "skeleton-start") 25%,
+      theme-color("dark", "skeleton-end") 50%,
+      theme-color("dark", "skeleton-start") 75%
+    );
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

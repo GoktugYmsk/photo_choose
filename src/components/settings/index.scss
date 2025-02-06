@@ -5,6 +5,10 @@
   max-width: $container-width;
   margin: 0 auto;
 
+  @media (max-width: $mobile) {
+    padding: 1rem;
+  }
+
   .settings-container {
     display: grid;
     grid-template-columns: 250px 1fr;
@@ -16,6 +20,7 @@
 
     @media (max-width: $tablet) {
       grid-template-columns: 1fr;
+      gap: 1rem;
     }
 
     .settings-sidebar {
@@ -24,11 +29,16 @@
       border-right: 1px solid theme-color("light", "border-color");
 
       @media (max-width: $tablet) {
+        padding: 1rem;
         border-right: none;
         border-bottom: 1px solid theme-color("light", "border-color");
         display: flex;
         overflow-x: auto;
-        padding: 1rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
 
       .tab-button {
@@ -43,14 +53,19 @@
         cursor: pointer;
         border-radius: $border-radius;
         transition: all 0.3s ease;
+        white-space: nowrap;
 
         @media (max-width: $tablet) {
           width: auto;
-          white-space: nowrap;
+          padding: 0.75rem 1rem;
+          font-size: 0.9rem;
         }
 
         svg {
           font-size: 1.2rem;
+          @media (max-width: $mobile) {
+            font-size: 1rem;
+          }
         }
 
         &:hover {
@@ -67,14 +82,25 @@
     .settings-content {
       padding: 2rem;
 
+      @media (max-width: $mobile) {
+        padding: 1rem;
+      }
+
       h3 {
         color: theme-color("light", "text-primary");
         margin-bottom: 1.5rem;
         font-size: 1.5rem;
+        @media (max-width: $mobile) {
+          font-size: 1.25rem;
+        }
       }
 
       .form-group {
         margin-bottom: 1.5rem;
+
+        @media (max-width: $mobile) {
+          margin-bottom: 1rem;
+        }
 
         label {
           display: block;
@@ -108,31 +134,15 @@
           resize: vertical;
           min-height: 100px;
         }
-      }
 
-      .avatar-upload {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+        .avatar-upload {
+          @media (max-width: $mobile) {
+            flex-direction: column;
+            align-items: flex-start;
 
-        .avatar-preview {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-
-        button {
-          padding: 0.5rem 1rem;
-          background: $secondary-color;
-          color: white;
-          border: none;
-          border-radius: $border-radius;
-          cursor: pointer;
-          transition: all 0.3s ease;
-
-          &:hover {
-            background: darken($secondary-color, 10%);
+            .avatar-preview {
+              margin-bottom: 1rem;
+            }
           }
         }
       }
@@ -163,11 +173,57 @@
         &:hover {
           background: darken($primary-color, 10%);
         }
+
+        @media (max-width: $mobile) {
+          width: 100%;
+          padding: 0.875rem;
+          font-size: 1rem;
+        }
+      }
+
+      .notification-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+
+        @media (max-width: $mobile) {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .admin-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+
+        @media (max-width: $mobile) {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+      }
+
+      .email-templates {
+        .form-group {
+          @media (max-width: $mobile) {
+            textarea {
+              min-height: 120px;
+            }
+          }
+        }
+      }
+
+      input,
+      select,
+      textarea {
+        @media (max-width: $mobile) {
+          font-size: 16px;
+        }
       }
     }
   }
 }
 
+// Dark theme styles
 body.dark-theme {
   .settings-page {
     .settings-container {
@@ -217,6 +273,40 @@ body.dark-theme {
         .checkbox-label,
         .radio-label {
           color: theme-color("dark", "text-primary");
+        }
+      }
+    }
+  }
+}
+
+// Dark theme için mobil düzenlemeler
+body.dark-theme {
+  .settings-page {
+    .settings-container {
+      .settings-sidebar {
+        @media (max-width: $tablet) {
+          border-color: rgba(255, 255, 255, 0.1);
+          background: darken(theme-color("dark", "bg-primary"), 3%);
+        }
+
+        .tab-button {
+          @media (max-width: $mobile) {
+            background: transparent;
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.05);
+            }
+
+            &.active {
+              background: lighten($primary-color, 5%);
+            }
+          }
+        }
+      }
+
+      .settings-content {
+        @media (max-width: $mobile) {
+          background: theme-color("dark", "bg-secondary");
         }
       }
     }
