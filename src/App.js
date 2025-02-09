@@ -17,6 +17,7 @@ import Contests from "./components/Contest/index.jsx";
 import InspirationDetail from "./components/CustomComponent/Content/sections/InspirationsDetail/InspirationsSectionDetails.jsx";
 import About from "./components/About/index.jsx";
 import Settings from "./components/settings/index.jsx";
+import PrivacyPolicy from "./components/PrivacyPolicy/index.jsx";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/contests" element={<Contests />} />
         <Route path="/about" element={<About />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/inspirations/:slug" element={<InspirationDetail />} />
         {/* 
       <Route

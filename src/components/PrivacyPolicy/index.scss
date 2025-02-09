@@ -1,0 +1,138 @@
+@import "../../variables";
+
+.privacy-policy {
+  padding: 2rem;
+  max-width: $container-width;
+  margin: 0 auto;
+
+  @media (max-width: $mobile) {
+    padding: 1rem;
+  }
+
+  .policy-container {
+    background: theme-color("light", "bg-secondary");
+    padding: 2rem;
+    border-radius: $border-radius;
+    box-shadow: $shadow-md;
+
+    h1 {
+      font-size: 2rem;
+      color: theme-color("light", "text-primary");
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .last-updated {
+      text-align: center;
+      color: theme-color("light", "text-secondary");
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+
+      h2 {
+        font-size: 1.5rem;
+        color: theme-color("light", "text-primary");
+        margin-bottom: 1rem;
+        border-bottom: 1px solid theme-color("light", "border-color");
+        padding-bottom: 0.5rem;
+      }
+
+      p {
+        color: theme-color("light", "text-secondary");
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      ul {
+        list-style: none;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+
+        li {
+          color: theme-color("light", "text-secondary");
+          margin-bottom: 0.5rem;
+          position: relative;
+
+          &:before {
+            content: "•";
+            position: absolute;
+            left: -1.5rem;
+            color: $primary-color;
+          }
+        }
+      }
+
+      .contact-info {
+        background: theme-color("light", "bg-primary");
+        padding: 1.5rem;
+        border-radius: $border-radius;
+        margin-top: 1rem;
+
+        p {
+          margin-bottom: 0.5rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .policy-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid theme-color("light", "border-color");
+      font-size: 0.9rem;
+      color: theme-color("light", "text-secondary");
+      text-align: center;
+    }
+  }
+}
+
+body.dark-theme {
+  .privacy-policy {
+    .policy-container {
+      background: theme-color("dark", "bg-secondary");
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+      h1 {
+        color: theme-color("dark", "text-primary");
+      }
+
+      .last-updated {
+        color: theme-color("dark", "text-secondary");
+      }
+
+      section {
+        h2 {
+          color: theme-color("dark", "text-primary");
+          border-color: theme-color("dark", "border-color");
+        }
+
+        p {
+          color: theme-color("dark", "text-secondary");
+        }
+
+        ul li {
+          color: theme-color("dark", "text-secondary");
+
+          &:before {
+            color: lighten($primary-color, 15%);
+          }
+        }
+
+        .contact-info {
+          background: theme-color("dark", "bg-primary");
+        }
+      }
+
+      .policy-footer {
+        border-color: theme-color("dark", "border-color");
+        color: theme-color("dark", "text-secondary");
+      }
+    }
+  }
+}
