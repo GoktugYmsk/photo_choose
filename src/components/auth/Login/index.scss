@@ -280,34 +280,10 @@ body.dark-theme {
 }
 
 body.dark-theme {
-  .auth-container {
-    .auth-box {
-      h1 {
-        color: theme-color("dark", "text-primary");
-      }
-    }
-    .auth-card {
-      .auth-header {
-        .login-icon {
-          color: lighten($primary-color, 10%);
-        }
-      }
-
-      .auth-form {
-        .remember-me {
-          color: theme-color("dark", "text-primary");
-        }
-
-        .forgot-password {
-          a {
-            color: lighten($primary-color, 10%);
-
-            &:hover {
-              color: lighten($primary-color, 20%);
-            }
-          }
-        }
-      }
-    }
+  h1 {
+    color: theme-color("dark", "text-secondary") !important;
+  }
+  .form-group label {
+    color: theme-color("dark", "text-secondary") !important;
   }
 }
