@@ -9,7 +9,7 @@
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 
   .auth-box {
-    background: white;
+    background: theme-color("light", "bg-secondary");
     padding: 2rem;
     border-radius: $border-radius;
     box-shadow: 0 2px 10px rgba($primary-color, 0.1);
@@ -18,7 +18,7 @@
 
     h1 {
       text-align: center;
-      color: $primary-color;
+      color: theme-color("light", "text-primary");
       margin-bottom: 1.5rem;
     }
 
@@ -221,7 +221,6 @@
   }
 }
 
-// Dark theme için ek stiller
 body.dark-theme {
   .demo-credentials {
     background-color: rgba($secondary-color, 0.1);
@@ -280,9 +279,13 @@ body.dark-theme {
   }
 }
 
-// Dark theme styles
 body.dark-theme {
-  .login-container {
+  .auth-container {
+    .auth-box {
+      h1 {
+        color: theme-color("dark", "text-primary");
+      }
+    }
     .auth-card {
       .auth-header {
         .login-icon {
